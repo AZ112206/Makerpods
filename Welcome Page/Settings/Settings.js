@@ -1,61 +1,204 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const themeToggleBtn = document.getElementById("theme-toggle-btn");
-  const themeIcon = document.getElementById("theme-icon");
-  const transparencyToggleBtn = document.getElementById("transparency-toggle-btn");
-  const transparencyIcon = document.getElementById("transparency-icon");
   const htmlElement = document.documentElement;
+  const navItems = document.querySelectorAll(".settings-nav-item");
+  const panelContents = document.querySelectorAll(".settings-panel-content");
+  const panelTitle = document.getElementById("settings-panel-title");
+  const panelDesc = document.getElementById("settings-panel-desc");
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const transparencyToggle = document.getElementById("transparency-toggle");
 
-  const SUN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-  const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-  const CLEAR_SQ_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>`;
-  const SOLID_SQ_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>`;
-
-  function updateThemeIcon(theme) {
-    if (!themeIcon) return;
-    themeIcon.innerHTML = theme === "dark" ? SUN_SVG : MOON_SVG;
-  }
+    const PANEL_META = {
+    appearance: {
+      title: "Appearance",
+      desc: "Customize how Makerpods looks."
+    },
+    account: {
+      title: "Account",
+      desc: "Manage your profile information."
+    },
+    notifications: {
+      title: "Notifications",
+      desc: "Control your notification preferences."
+    },
+        connections: {
+      title: "Connections",
+      desc: "Link your social media accounts."
+    },
+    privacy: {
+      title: "Privacy & Security",
+      desc: "Control your privacy and security settings."
+    },
+    help: {
+      title: "Help & Support",
+      desc: "Get help and learn more about Makerpods."
+    },
+    logout: {
+      title: "Log Out",
+      desc: "Sign out of your account."
+    }
+  };
 
   function applySavedTheme() {
     const savedTheme = localStorage.getItem("makerpodsTheme");
     const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     htmlElement.setAttribute("data-theme", preferredTheme);
-    updateThemeIcon(preferredTheme);
-  }
-
-  function updateTransparencyIcon(mode) {
-    if (!transparencyIcon) return;
-    transparencyIcon.innerHTML = mode === "transparent" ? CLEAR_SQ_SVG : SOLID_SQ_SVG;
+    if (darkModeToggle) {
+      darkModeToggle.checked = preferredTheme === "dark";
+    }
   }
 
   function applySavedSurfaceMode() {
     const savedMode = localStorage.getItem("makerpodsSurfaceMode");
     const preferredMode = savedMode === "solid" || savedMode === "transparent" ? savedMode : "transparent";
     htmlElement.setAttribute("data-surface-mode", preferredMode);
-    updateTransparencyIcon(preferredMode);
+    if (transparencyToggle) {
+      transparencyToggle.checked = preferredMode === "transparent";
+    }
   }
 
-  if (themeToggleBtn && themeIcon) {
-    applySavedTheme();
-    applySavedSurfaceMode();
+  function switchPanel(panelId) {
+    navItems.forEach((item) => {
+      item.classList.toggle("active", item.dataset.panel === panelId);
+    });
 
-    themeToggleBtn.addEventListener("click", () => {
-      const currentTheme = htmlElement.getAttribute("data-theme") || "light";
-      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    panelContents.forEach((content) => {
+      content.classList.toggle("active", content.id === `panel-${panelId}`);
+    });
 
+    const meta = PANEL_META[panelId];
+    if (meta && panelTitle && panelDesc) {
+      panelTitle.textContent = meta.title;
+      panelDesc.textContent = meta.desc;
+    }
+  }
+
+  applySavedTheme();
+  applySavedSurfaceMode();
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      switchPanel(item.dataset.panel);
+    });
+  });
+
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("change", () => {
+      const nextTheme = darkModeToggle.checked ? "dark" : "light";
       htmlElement.setAttribute("data-theme", nextTheme);
       localStorage.setItem("makerpodsTheme", nextTheme);
-      updateThemeIcon(nextTheme);
     });
   }
 
-  if (transparencyToggleBtn && transparencyIcon) {
-    transparencyToggleBtn.addEventListener("click", () => {
-      const currentMode = htmlElement.getAttribute("data-surface-mode") || "transparent";
-      const nextMode = currentMode === "transparent" ? "solid" : "transparent";
+    if (transparencyToggle) {
+      transparencyToggle.addEventListener("change", () => {
+        const nextMode = transparencyToggle.checked ? "transparent" : "solid";
+        htmlElement.setAttribute("data-surface-mode", nextMode);
+        localStorage.setItem("makerpodsSurfaceMode", nextMode);
+      });
+    }
 
-      htmlElement.setAttribute("data-surface-mode", nextMode);
-      localStorage.setItem("makerpodsSurfaceMode", nextMode);
-      updateTransparencyIcon(nextMode);
+    // Notification toggles
+    const notificationToggles = {
+      push: document.getElementById("push-notifications-toggle"),
+      email: document.getElementById("email-notifications-toggle"),
+      message: document.getElementById("message-notifications-toggle"),
+      follower: document.getElementById("follower-notifications-toggle")
+    };
+
+    function loadNotificationPrefs() {
+      const saved = localStorage.getItem("makerpodsNotificationPrefs");
+      if (!saved) return;
+      try {
+        const prefs = JSON.parse(saved);
+        Object.keys(notificationToggles).forEach((key) => {
+          if (notificationToggles[key] && typeof prefs[key] === "boolean") {
+            notificationToggles[key].checked = prefs[key];
+          }
+        });
+      } catch (e) {
+        console.warn("Failed to parse saved notification prefs", e);
+      }
+    }
+
+    function saveNotificationPrefs() {
+      const prefs = {};
+      Object.keys(notificationToggles).forEach((key) => {
+        if (notificationToggles[key]) {
+          prefs[key] = notificationToggles[key].checked;
+        }
+      });
+      localStorage.setItem("makerpodsNotificationPrefs", JSON.stringify(prefs));
+    }
+
+    loadNotificationPrefs();
+
+    Object.keys(notificationToggles).forEach((key) => {
+      if (notificationToggles[key]) {
+        notificationToggles[key].addEventListener("change", saveNotificationPrefs);
+      }
     });
+
+    // Privacy toggle
+    const privateAccountToggle = document.getElementById("private-account-toggle");
+    if (privateAccountToggle) {
+      const savedPrivate = localStorage.getItem("makerpodsPrivateAccount");
+      if (savedPrivate === "true") {
+        privateAccountToggle.checked = true;
+      }
+      privateAccountToggle.addEventListener("change", () => {
+        localStorage.setItem("makerpodsPrivateAccount", privateAccountToggle.checked ? "true" : "false");
+      });
+    }
+
+  // Connections panel: social media URL inputs
+  const connectionInputs = {
+    facebook: document.getElementById("facebook-url"),
+    twitter: document.getElementById("twitter-url"),
+    instagram: document.getElementById("instagram-url"),
+    snapchat: document.getElementById("snapchat-url"),
+    tiktok: document.getElementById("tiktok-url"),
+    linkedin: document.getElementById("linkedin-url")
+  };
+
+  const saveConnectionsBtn = document.getElementById("connections-save");
+  const cancelConnectionsBtn = document.getElementById("connections-cancel");
+
+  function loadSavedConnections() {
+    const saved = localStorage.getItem("makerpodsConnections");
+    if (!saved) return;
+    try {
+      const connections = JSON.parse(saved);
+      Object.keys(connectionInputs).forEach((key) => {
+        if (connectionInputs[key] && connections[key]) {
+          connectionInputs[key].value = connections[key];
+        }
+      });
+    } catch (e) {
+      console.warn("Failed to parse saved connections", e);
+    }
+  }
+
+  function saveConnections() {
+    const connections = {};
+    Object.keys(connectionInputs).forEach((key) => {
+      if (connectionInputs[key]) {
+        connections[key] = connectionInputs[key].value.trim();
+      }
+    });
+    localStorage.setItem("makerpodsConnections", JSON.stringify(connections));
+  }
+
+  function cancelConnections() {
+    loadSavedConnections();
+  }
+
+  loadSavedConnections();
+
+  if (saveConnectionsBtn) {
+    saveConnectionsBtn.addEventListener("click", saveConnections);
+  }
+
+  if (cancelConnectionsBtn) {
+    cancelConnectionsBtn.addEventListener("click", cancelConnections);
   }
 });

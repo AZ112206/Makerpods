@@ -45,12 +45,44 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--border-subtle);
 }
 
-[data-surface-mode=transparent] .settings-section {
+[data-surface-mode=transparent] .settings-panel-content .settings-item {
   background-color: rgba(var(--card-bg-rgb), 0.32);
 }
 
 [data-surface-mode=transparent] .settings-item:hover {
   background-color: rgba(var(--card-bg-rgb), 0.45);
+}
+
+[data-surface-mode=transparent] .connection-row {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+}
+
+[data-surface-mode=transparent] .connection-row:hover {
+  background-color: rgba(var(--card-bg-rgb), 0.45);
+}
+
+[data-surface-mode=transparent] .connection-input {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+}
+
+[data-surface-mode=transparent] .connection-icon {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+}
+
+[data-surface-mode=transparent] .settings-sidebar {
+  background: rgba(var(--card-bg-rgb), 0.32);
+}
+
+[data-surface-mode=transparent] .settings-nav-item {
+  background-color: transparent;
+}
+
+[data-surface-mode=transparent] .settings-nav-item:hover {
+  background-color: rgba(var(--card-bg-rgb), 0.45);
+}
+
+[data-surface-mode=transparent] .settings-nav-item.active {
+  background-color: rgba(99, 102, 241, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,6 +106,7 @@
 }
 
 * {
+  
   box-sizing: border-box;
 }
 
@@ -102,9 +135,10 @@ body {
 .settings-container {
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   margin: 24px;
-  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
   background: rgba(var(--card-bg-rgb), 0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -113,6 +147,7 @@ body {
   box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.35),
     0 0 0 1px var(--border-subtle);
+  overflow: hidden;
   transition: background 0.3s ease, border-color 0.3s ease;
   animation: settings-fade-in 0.5s ease both;
 }
@@ -129,53 +164,190 @@ body {
 }
 
 /* ==========================================
-   Settings Header
+   Settings Body (Sidebar + Panel)
    ========================================== */
 
-.settings-header {
-  text-align: center;
-  margin-bottom: 32px;
+.settings-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
-.settings-header h1 {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--text-main);
-  margin: 0 0 8px 0;
-  letter-spacing: -0.5px;
+.settings-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 24px 20px;
+  border-right: 1px solid var(--border-subtle);
+  background: rgba(var(--card-bg-rgb), 0.5);
+  display: flex;
+  flex-direction: column;
 }
 
-.settings-header p {
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: none;
+  background: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
   color: var(--text-muted);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.settings-nav-item:hover {
+  background-color: rgba(99, 102, 241, 0.06);
+  color: var(--text-main);
+}
+
+[data-theme=dark] .settings-nav-item:hover {
+  background-color: rgba(129, 140, 248, 0.08);
+}
+
+.settings-nav-item.active {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-indigo);
+}
+
+[data-theme=dark] .settings-nav-item.active {
+  background-color: rgba(129, 140, 248, 0.16);
+}
+
+.settings-nav-item.danger:hover {
+  background-color: rgba(244, 63, 94, 0.06);
+  color: #F43F5E;
+}
+
+.settings-nav-item.danger.active {
+  background-color: rgba(244, 63, 94, 0.12);
+  color: #F43F5E;
+}
+
+.settings-nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.settings-nav-icon.indigo {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-indigo);
+}
+
+.settings-nav-icon.amber {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #F59E0B;
+}
+
+.settings-nav-icon.sky {
+  background-color: rgba(14, 165, 233, 0.12);
+  color: #0EA5E9;
+}
+
+.settings-nav-icon.rose {
+  background-color: rgba(244, 63, 94, 0.12);
+  color: #F43F5E;
+}
+
+.settings-nav-icon.pink {
+  background-color: rgba(236, 72, 153, 0.12);
+  color: #EC4899;
+}
+
+.settings-nav-icon.teal {
+  background-color: rgba(20, 184, 166, 0.12);
+  color: #14B8A6;
+}
+
+.settings-nav-icon.violet {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #8B5CF6;
+}
+
+.settings-nav-label {
   font-size: 15px;
-  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ==========================================
-   Settings Sections
+   Settings Panel
    ========================================== */
 
-.settings-section {
-  margin-bottom: 24px;
+.settings-panel {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-panel-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+.settings-panel-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.settings-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-panel-content {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-panel-content.active {
+  display: flex;
+}
+
+.settings-panel-content .settings-item {
   background-color: var(--card-bg);
-  border-radius: 20px;
   border: 1px solid var(--border-subtle);
-  overflow: hidden;
+  border-radius: 16px;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.settings-section:last-child {
-  margin-bottom: 0;
+.settings-panel-content .settings-item:hover {
+  background-color: rgba(99, 102, 241, 0.06);
 }
 
-.settings-section-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 16px 20px 8px 20px;
-  margin: 0;
+[data-theme=dark] .settings-panel-content .settings-item:hover {
+  background-color: rgba(129, 140, 248, 0.08);
+}
+
+.settings-panel-content .settings-item.danger:hover {
+  background-color: rgba(244, 63, 94, 0.06);
+}
+
+[data-theme=dark] .settings-panel-content .settings-item.danger:hover {
+  background-color: rgba(244, 63, 94, 0.1);
 }
 
 /* ==========================================
@@ -251,6 +423,16 @@ body {
 .settings-item-icon.sky {
   background-color: rgba(14, 165, 233, 0.12);
   color: #0EA5E9;
+}
+
+.settings-item-icon.teal {
+  background-color: rgba(20, 184, 166, 0.12);
+  color: #14B8A6;
+}
+
+.settings-item-icon.violet {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #8B5CF6;
 }
 
 .settings-item-text {
@@ -370,109 +552,218 @@ body {
 }
 
 .settings-item.danger .settings-item-icon {
+  
   background-color: rgba(244, 63, 94, 0.12);
   color: #F43F5E;
 }
 
 /* ==========================================
-   Gear Settings Toggle (FAB)
+   Connections Panel
    ========================================== */
 
-.gear-toggle-container {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
+.connections-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
+  gap: 12px;
 }
 
-.gear-options {
+.connection-row {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 12px 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.connection-platform {
+  display: flex;
   align-items: center;
   gap: 10px;
-  transform: translateY(20px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  min-width: 140px;
+  flex-shrink: 0;
 }
 
-.gear-toggle-container:hover .gear-options {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: all;
+.connection-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.gear-main-btn,
-.gear-option-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(var(--card-bg-rgb), 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid var(--border-subtle);
+.connection-icon.facebook {
+  background-color: rgba(24, 119, 242, 0.12);
+  color: #1877F2;
+}
+
+.connection-icon.twitter {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #000000;
+}
+
+[data-theme=dark] .connection-icon.twitter {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.connection-icon.instagram {
+  background-color: rgba(225, 48, 108, 0.12);
+  color: #E1306C;
+}
+
+.connection-icon.snapchat {
+  background-color: rgba(255, 215, 0, 0.15);
+  color: #FFD700;
+}
+
+.connection-icon.tiktok {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #000000;
+}
+
+[data-theme=dark] .connection-icon.tiktok {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.connection-icon.linkedin {
+  background-color: rgba(10, 102, 194, 0.12);
+  color: #0A66C2;
+}
+
+.connection-name {
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
 
-.gear-option-btn {
-  width: 46px;
-  height: 46px;
+.connection-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  background-color: rgba(var(--card-bg-rgb), 0.5);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.gear-option-btn span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.connection-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
 }
 
-.gear-main-btn:hover {
-  transform: rotate(45deg) scale(1.08);
-}
-
-:root:not([data-theme=dark]) .gear-option-btn:hover {
-  background-color: var(--primary-indigo);
+.connection-input:focus {
+  outline: none;
   border-color: var(--primary-indigo);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
-  transform: scale(1.12);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-[data-theme=dark] .gear-option-btn:hover {
-  background-color: var(--mint-accent);
-  border-color: var(--mint-accent);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(52, 211, 153, 0.4);
-  transform: scale(1.12);
+.connections-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
 }
 
-[data-surface-mode=transparent] .gear-main-btn,
-[data-surface-mode=transparent] .gear-option-btn {
-  background: rgba(var(--card-bg-rgb), 0.3);
+.btn-save,
+.btn-cancel {
+  padding: 10px 28px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-save {
+  background-color: var(--primary-indigo);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-save:hover {
+  background-color: var(--indigo-hover);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+}
+
+.btn-save:active {
+  transform: scale(0.98);
+}
+
+.btn-cancel {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-cancel:hover {
+  background-color: rgba(99, 102, 241, 0.06);
+  color: var(--text-main);
+}
+
+.btn-cancel:active {
+  transform: scale(0.98);
 }
 
 /* ==========================================
    Responsive
    ========================================== */
 
-@media (max-width: 520px) {
+@media (max-width: 720px) {
   .settings-container {
-    padding: 32px 20px;
     margin: 16px;
     border-radius: 24px;
   }
 
-  .settings-header h1 {
-    font-size: 24px;
+  .settings-body {
+    flex-direction: column;
+  }
+
+  .settings-sidebar {
+    width: 100%;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .settings-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .settings-nav-item {
+    flex-shrink: 0;
+    padding: 10px 14px;
+  }
+
+  .settings-nav-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  .settings-nav-label {
+    font-size: 14px;
+  }
+
+  .settings-panel {
+    padding: 24px 20px;
+  }
+
+  .settings-panel-header h2 {
+    font-size: 20px;
   }
 
   .settings-item {
