@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const successEl = document.getElementById("scan-success");
   const successMsg = document.getElementById("scan-success-msg");
   const continueBtn = document.getElementById("continue-btn");
+  const backBtn = document.getElementById("back-btn");
 
   const COUNTERPARTY_LABEL = role === "parent" ? "child" : "parent";
 
@@ -153,6 +154,15 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
     }, 280);
   });
+
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      if (card) card.classList.add("page-exit");
+      setTimeout(() => {
+        window.location.href = "../../Sign Up " + (role === "parent" ? "Parent" : "Student") + "/Sign Up 5b/Sign Up Pt 5b.html";
+      }, 280);
+    });
+  }
 
   startCamera();
 });

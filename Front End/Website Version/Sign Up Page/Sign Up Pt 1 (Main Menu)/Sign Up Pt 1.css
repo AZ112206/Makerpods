@@ -4,9 +4,10 @@
 
 /* 1. Default: Original Light Theme Variables */
 :root {
-  --primary-indigo: #6366F1;     
-  --indigo-hover: #4F46E5;       
-  --mint-accent: #10B981;        
+  --primary-indigo: #6366F1;
+  --indigo-hover: #4F46E5;
+  --mint-accent: #10B981;
+  --mint-hover: #059669;
   
   --bg-canvas: #F8FAFC;          
   --card-bg: #FFFFFF;            
@@ -318,6 +319,38 @@ body {
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
+}
+
+.pill-button-indigo {
+  background-color: var(--primary-indigo);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.pill-button-indigo:hover:not(:disabled) {
+  background-color: var(--indigo-hover);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+}
+
+.pill-button-mint {
+  background-color: var(--mint-accent);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.pill-button-mint:hover:not(:disabled) {
+  background-color: var(--mint-hover);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-actions .pill-button {
+  width: auto;
+  flex: 1;
 }
 
 /* ==========================================

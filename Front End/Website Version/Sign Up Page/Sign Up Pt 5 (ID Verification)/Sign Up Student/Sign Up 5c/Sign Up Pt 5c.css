@@ -271,6 +271,36 @@ h1 {
   to { opacity: 0; transform: translateY(-14px) scale(0.98); }
 }
 
+.scan-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 200px;
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 9999px;
+  color: #fff;
+  background: var(--mint-accent, #10B981);
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.36);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-back:hover { background: var(--mint-hover, #059669); box-shadow: 0 14px 30px rgba(5, 150, 105, 0.42); transform: translateY(-2px); }
+.btn-back:active { transform: scale(0.98); }
+.btn-back:focus-visible { outline: 4px solid rgba(16, 185, 129, 0.28); outline-offset: 4px; }
+
 @media (max-width: 520px) {
   body { padding: 16px; }
   .scan-card { padding: 32px 22px; border-radius: 22px; }

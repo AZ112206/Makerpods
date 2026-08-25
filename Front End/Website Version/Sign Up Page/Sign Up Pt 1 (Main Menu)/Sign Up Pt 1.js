@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const roleCards = document.querySelectorAll(".role-card");
   const nextButton = document.getElementById("next-step-btn");
+  const backButton = document.getElementById("back-btn");
   const themeToggleBtn = document.getElementById("theme-toggle-btn");
   const themeIcon = document.getElementById("theme-icon");
   const transparencyToggleBtn = document.getElementById("transparency-toggle-btn");
@@ -74,6 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sessionStorage.setItem("makerpodsUserRole", selectedRole);
       goTo(roleRoutes[selectedRole]);
+    });
+  }
+
+  if (backButton) {
+    backButton.addEventListener("click", () => {
+      goTo("../../Home Page/Home Page.html");
     });
   }
 

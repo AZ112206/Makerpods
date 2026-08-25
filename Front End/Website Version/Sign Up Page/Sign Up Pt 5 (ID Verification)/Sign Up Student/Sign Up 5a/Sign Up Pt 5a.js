@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const summaryList = document.getElementById("id-summary-list");
   const openVerifyBtn = document.getElementById("open-verify-btn");
   const skipBtn = document.getElementById("skip-btn");
+  const backBtn = document.getElementById("back-btn");
   const skipModal = document.getElementById("skip-modal");
   const skipModalBody = document.getElementById("skip-modal-body");
   const skipModalBack = document.getElementById("skip-modal-back");
@@ -137,6 +138,15 @@ document.addEventListener("DOMContentLoaded", () => {
   skipBtn.addEventListener("click", () => {
     openSkipModal();
   });
+
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      if (card) card.classList.add("page-exit");
+      setTimeout(() => {
+        window.location.href = "../../../Sign Up Pt 4a (Phone number optional)/Sign Up Pt 4a.html";
+      }, 280);
+    });
+  }
 
   // Skip-confirm modal: show role-specific warning, Proceed goes to Pt 6,
   // Go back dismisses the modal so the user can keep verifying.

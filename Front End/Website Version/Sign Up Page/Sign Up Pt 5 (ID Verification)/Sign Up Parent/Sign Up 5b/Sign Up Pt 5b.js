@@ -292,6 +292,7 @@
     const tokenEl = document.getElementById("qr-token");
     const regenBtn = document.getElementById("regen-btn");
     const continueBtn = document.getElementById("continue-btn");
+    const backBtn = document.getElementById("back-btn");
     const statusEl = document.getElementById("qr-status");
 
     function randomCode() {
@@ -356,6 +357,15 @@
     });
 
     regenBtn.addEventListener("click", generate);
+
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        if (card) card.classList.add("page-exit");
+        setTimeout(() => {
+          window.location.href = "../../Sign Up " + (role === "parent" ? "Parent" : "Student") + "/Sign Up 5a/Sign Up Pt 5a.html";
+        }, 280);
+      });
+    }
 
     continueBtn.addEventListener("click", () => {
       const folder = role === "parent" ? "Parent" : "Student";
