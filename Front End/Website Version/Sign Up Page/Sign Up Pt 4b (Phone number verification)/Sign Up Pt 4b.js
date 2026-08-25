@@ -16,6 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { window.location.href = url; }, 320);
   }
 
+  // Route to the correct Pt 5a subfolder based on the user's role
+  // (parent / student / adult). Adults skip the family-link step and
+  // jump straight to Pt 6.
+  function goToIdVerification() {
+    const role = sessionStorage.getItem("makerpodsUserRole");
+    if (role === "parent") {
+      goTo("../Sign Up Pt 5 (ID Verification)/Sign Up Parent/Sign Up 5a/Sign Up Pt 5a.html");
+    } else if (role === "student") {
+      goTo("../Sign Up Pt 5 (ID Verification)/Sign Up Student/Sign Up 5a/Sign Up Pt 5a.html");
+    } else {
+      // Adult flow: still needs ID verification, but skips the QR/scan step
+      // (5b/5c). 5a Adult routes directly to Pt 6 once Continue is tapped.
+      goTo("../Sign Up Pt 5 (ID Verification)/Sign Up Adult/Sign Up 5a/Sign Up Pt 5a.html");
+    }
+  }
+
   const SUN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
   const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   const CLEAR_SQ_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>`;
@@ -72,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     if (!submitBtn.disabled) {
       sessionStorage.setItem("makerpodsPhoneVerified", "true");
-      goTo("../Sign Up Pt 5 (Welcome)/Sign Up Pt 5.html");
+      goToIdVerification();
     }
   });
   updateSubmitState();

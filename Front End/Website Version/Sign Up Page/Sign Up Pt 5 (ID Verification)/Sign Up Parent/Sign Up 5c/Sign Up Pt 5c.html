@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link your family — Makerpods</title>
+  <link rel="stylesheet" href="Sign Up Pt 5c.css" />
+  <link rel="stylesheet" href="../../../../assets/css/site-logo.css" />
+</head>
+<body data-role="parent">
+  <a href="../../../../Home Page/Home Page.html" class="site-logo-link" aria-label="Makerpods Home">
+    <img src="../../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </a>
+
+  <main class="scan-card" data-step="qr-scan">
+    <p class="eyebrow">Step 3 of 3</p>
+    <h1>Scan your child's code</h1>
+    <p class="scan-lede">
+      Ask your child to show their Makerpods QR code, then point your camera at it.
+    </p>
+
+    <div class="scan-stage">
+      <div class="scan-window" id="scan-window">
+        <video id="scan-video" playsinline muted aria-hidden="true"></video>
+        <div class="scan-overlay" aria-hidden="true">
+          <div class="scan-frame"></div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="scan-empty" id="scan-empty">
+          <p>Camera not available on this device.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="scan-help">
+      No camera? Type the 6-character code from their screen below.
+    </p>
+
+    <form class="scan-form" id="manual-form" autocomplete="off">
+      <label class="scan-form-label" for="manual-code">Code</label>
+      <input
+        type="text"
+        id="manual-code"
+        name="manual-code"
+        class="scan-form-input"
+        maxlength="6"
+        inputmode="latin"
+        pattern="[A-Za-z0-9]{6}"
+        placeholder="ABC123"
+        spellcheck="false"
+        autocapitalize="characters"
+      />
+      <button type="submit" class="btn-primary">Link</button>
+    </form>
+
+    <div class="scan-error" id="scan-error" role="alert" hidden></div>
+
+    <div class="scan-success" id="scan-success" hidden>
+      <div class="scan-success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m5 12 4 4L19 6" />
+        </svg>
+      </div>
+      <h2>You're linked</h2>
+      <p id="scan-success-msg">Your child and you are now connected on Makerpods.</p>
+      <button type="button" id="continue-btn" class="btn-primary">Continue</button>
+    </div>
+  </main>
+
+  <script src="Sign Up Pt 5c.js"></script>
+</body>
+</html>

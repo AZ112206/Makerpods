@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link your family — Makerpods</title>
+  <link rel="stylesheet" href="Sign Up Pt 5b.css" />
+  <link rel="stylesheet" href="../../../../assets/css/site-logo.css" />
+</head>
+<body data-role="student">
+  <a href="../../../../Home Page/Home Page.html" class="site-logo-link" aria-label="Makerpods Home">
+    <img src="../../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </a>
+
+  <main class="qr-card" data-step="qr-generate">
+    <p class="eyebrow">Step 2 of 3</p>
+    <h1>Show this to your parent</h1>
+    <p class="qr-lede">
+      Have your parent open Makerpods on their phone and scan this code from their parent account. It links your two accounts together so they can approve and follow your work.
+    </p>
+
+    <div class="qr-stage" aria-live="polite">
+      <div class="qr-frame" id="qr-frame" aria-label="Family-link QR code">
+        <!-- QR rendered here by Sign Up Pt 5b.js -->
+      </div>
+      <div class="qr-corner qr-corner-tl" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-tr" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-bl" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-br" aria-hidden="true"></div>
+    </div>
+
+    <p class="qr-token-line">
+      <span class="qr-token-label">Code</span>
+      <span class="qr-token" id="qr-token">------</span>
+    </p>
+
+    <p class="qr-help">
+      If your parent can't scan, they can enter the code above manually on their device.
+    </p>
+
+    <div class="qr-status" id="qr-status" role="status">
+      <span class="qr-status-dot" aria-hidden="true"></span>
+      <span class="qr-status-text">Waiting for scan…</span>
+    </div>
+
+    <div class="qr-actions">
+      <button type="button" id="regen-btn" class="btn-ghost">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+            <path d="M21 3v5h-5" />
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+            <path d="M3 21v-5h5" />
+          </svg>
+        </span>
+        New code
+      </button>
+      <button type="button" id="continue-btn" class="btn-primary">Continue</button>
+    </div>
+  </main>
+
+  <script src="Sign Up Pt 5b.js"></script>
+</body>
+</html>

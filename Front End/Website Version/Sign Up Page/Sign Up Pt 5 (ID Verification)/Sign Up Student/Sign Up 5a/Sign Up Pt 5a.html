@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify your ID — Makerpods</title>
+  <link rel="stylesheet" href="Sign Up Pt 5a.css" />
+  <link rel="stylesheet" href="../../../../assets/css/site-logo.css" />
+</head>
+<body data-role="student">
+  <a href="../../../../Home Page/Home Page.html" class="site-logo-link" aria-label="Makerpods Home">
+    <img src="../../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </a>
+
+  <main class="verify-card" data-step="id-info">
+    <div class="verify-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="3" />
+        <circle cx="9" cy="11" r="2.2" />
+        <path d="M15 10h3M15 13h2M6 17c.6-1.6 1.7-2.5 3-2.5s2.4.9 3 2.5" />
+      </svg>
+    </div>
+
+    <p class="eyebrow">Step 1 of 3</p>
+    <h1>Verify your ID</h1>
+    <p class="verify-lede">
+      To keep Makerpods safe for everyone, we verify the identity of every student account. You'll be asked to confirm a few details from a government-issued ID, so please <strong>ask a parent or guardian to help you</strong> with this step.
+    </p>
+
+    <section class="id-summary" aria-label="Your account details">
+      <h2 class="id-summary-title">On file for this account</h2>
+      <dl class="id-summary-list" id="id-summary-list">
+        <!-- Filled in by Sign Up Pt 5a.js -->
+      </dl>
+    </section>
+
+    <p class="verify-help">
+      Tap <strong>Open verification</strong> below — a new tab will open with our verification partner. Follow the steps there, then come back and tap <strong>Continue</strong>.
+    </p>
+
+    <div class="verify-actions">
+      <button type="button" id="open-verify-btn" class="btn-primary">
+        <span class="btn-primary-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3h7v7" />
+            <path d="M10 14L21 3" />
+            <path d="M21 14v7H3V3h7" />
+          </svg>
+        </span>
+        Open verification
+      </button>
+      <button type="button" id="skip-btn" class="btn-link">Skip for now</button>
+    </div>
+  </main>
+
+  <!-- Skip confirmation modal -->
+  <div class="modal-backdrop" id="skip-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="skip-modal-title" aria-describedby="skip-modal-body">
+      <div class="modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 9v4" />
+          <path d="M12 17h.01" />
+          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+        </svg>
+      </div>
+      <h2 class="modal-title" id="skip-modal-title">Skip ID verification?</h2>
+      <p class="modal-body" id="skip-modal-body">
+        <!-- Filled in by Sign Up Pt 5a.js with role-specific copy -->
+      </p>
+      <div class="modal-actions">
+        <button type="button" id="skip-modal-back" class="btn-ghost">Go back</button>
+        <button type="button" id="skip-modal-proceed" class="btn-primary">Proceed anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Sign Up Pt 5a.js"></script>
+</body>
+</html>
