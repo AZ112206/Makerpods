@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       // Skipping the modal jumps straight to Pt 6 for every role.
       if (step === "skipped") {
-        window.location.href = "../../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
+        window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
         return;
       }
       // Otherwise (Open verification), continue to 5b (QR generation).

@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const successMsg = document.getElementById("scan-success-msg");
   const continueBtn = document.getElementById("continue-btn");
 
-  const COUNTERPARTY_ROLE = role === "parent" ? "student" : "parent";
   const COUNTERPARTY_LABEL = role === "parent" ? "child" : "parent";
 
   let detector = null;
@@ -151,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (card) card.classList.add("page-exit");
     setTimeout(() => {
       // The link role is what gets persisted; the actual destination is Pt 6.
-      window.location.href = "../../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
+      window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
     }, 280);
   });
 
