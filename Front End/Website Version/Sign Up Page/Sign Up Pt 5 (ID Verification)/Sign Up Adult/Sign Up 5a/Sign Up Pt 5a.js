@@ -115,28 +115,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 280);
   }
 
-  openVerifyBtn.addEventListener("click", () => {
-    // Placeholder for an external identity-verification partner.
-    // The verification page would be opened in a new tab; we mark the
-    // session so 5b/5c can show a "verified" badge if the partner pings back.
-    const partnerUrl = "https://verify.example.com/makerpods?role=" + encodeURIComponent(role);
+  openVerifyBtn.addEventListener("click", async () => {
     try {
-      window.open(partnerUrl, "_blank", "noopener,noreferrer");
-    } catch (e) {
-      // Some sandboxed contexts block popups; fall back to in-page nav.
-      window.location.href = partnerUrl;
-      return;
-    }
-    sessionStorage.setItem("makerpodsIdVerificationChoice", "opened");
-    if (card) card.classList.add("page-exit");
-    setTimeout(() => {
-      if (role === "adult") {
-        window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
-        return;
+      // Call your Express backend to create the live Stripe Identity Session
+      const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        successUrl: 'http://localhost:3000/Front%20End/Website%20Version/Sign%20Up%20Page/Sign%20Up%20Pt%206%20(Welcome)/Sign%20Up%20Pt%206.html',
+        cancelUrl: 'http://localhost:3000/Front%20End/Website%20Version/Sign%20Up%20Page/Sign%20Up%20Pt%205%20(ID%20Verification)/Sign%20Up%20Adult/Sign%20Up%205a/Sign%20Up%20Pt%205a.html'
+      })
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        sessionStorage.setItem("makerpodsIdVerificationChoice", "opened");
+        if (card) card.classList.add("page-exit");
+        setTimeout(() => {
+          window.location.href = data.url;
+        }, 280);
+      } else {
+        alert('Error: Could not create verification session.');
       }
-      const folder = role === "parent" ? "Parent" : "Student";
-      window.location.href = "../../Sign Up " + folder + "/Sign Up 5b/Sign Up Pt 5b.html";
-    }, 280);
+    } catch (err) {
+      console.error('Network or server error:', err);
+      alert('Failed to connect to the backend server. Make sure your local Express server is running.');
+    }
   });
 
   skipBtn.addEventListener("click", () => {

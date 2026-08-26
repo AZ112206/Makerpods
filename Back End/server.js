@@ -158,3 +158,30 @@ app.listen(PORT, () => {
     console.log(`MakerPods server is active and listening on port ${PORT}`);
     console.log(`[Stripe] connected with publishable key ${process.env.STRIPE_PUBLISHABLE_KEY || '(missing)'}`);
 });
+
+// 11. Create a Stripe Identity Verification Session for Sign Up Pt 5
+app.post('/api/stripe/create-verification-session', async (req, res) => {
+    try {
+        const { successUrl, cancelUrl } = req.body || {};
+
+        if (!successUrl || !cancelUrl) {
+            return res.status(400).json({ error: 'successUrl and cancelUrl are required' });
+        }
+
+        const session = await stripe.identity.verificationSessions.create({
+            type: 'document',
+            metadata: { user_id: 'makerpods_test_user' },
+            options: {
+                document: {
+                    require_matching_selfie: true,
+                },
+            },
+            return_url: successUrl,
+        });
+
+        res.json({ id: session.id, url: session.url });
+    } catch (err) {
+        console.error('[Stripe] create-verification-session failed:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
