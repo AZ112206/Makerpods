@@ -1,0 +1,39 @@
+# ==========================================
+# Makerpods — environment & secrets
+# ==========================================
+# Never commit .env files — they hold API keys and secrets.
+.env
+.env.*
+*.env
+!.env.example
+
+# Specific keys/secrets we know are sensitive
+stripe.env
+**/API Keys/
+
+# ==========================================
+# OS / editor noise
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Node / build artifacts
+# ==========================================
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+out/
+coverage/
