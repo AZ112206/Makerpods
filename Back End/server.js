@@ -18,6 +18,7 @@ const PORT = process.env.PORT || 3000;
 // 3. Middleware setup
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '..')));
 
 // 4. Validate that the Stripe secret key was loaded before initializing Stripe.
 //    dotenv silently fails if the path or format is wrong, so this guards against it.

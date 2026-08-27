@@ -358,6 +358,13 @@
 
     regenBtn.addEventListener("click", generate);
 
+    // bfcache can restore this page without re-firing DOMContentLoaded,
+    // which would leave the old QR on screen. If we were restored from
+    // bfcache, regenerate so each visit produces a fresh code.
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) generate();
+    });
+
     if (backBtn) {
       backBtn.addEventListener("click", () => {
         if (card) card.classList.add("page-exit");
