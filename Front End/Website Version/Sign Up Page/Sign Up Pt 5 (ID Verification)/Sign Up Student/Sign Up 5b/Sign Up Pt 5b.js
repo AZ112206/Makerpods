@@ -369,16 +369,15 @@
       backBtn.addEventListener("click", () => {
         if (card) card.classList.add("page-exit");
         setTimeout(() => {
-          window.location.href = "../../Sign Up " + (role === "parent" ? "Parent" : "Student") + "/Sign Up 5a/Sign Up Pt 5a.html";
+          window.location.href = "../../Sign Up Student/Sign Up 5a/Sign Up Pt 5a.html";
         }, 280);
       });
     }
 
     continueBtn.addEventListener("click", () => {
-      const folder = role === "parent" ? "Parent" : "Student";
       if (card) card.classList.add("page-exit");
       setTimeout(() => {
-        window.location.href = "../../Sign Up " + folder + "/Sign Up 5c/Sign Up Pt 5c.html";
+        window.location.href = "../../Sign Up Student/Sign Up 5c/Sign Up Pt 5c.html";
       }, 280);
     });
 

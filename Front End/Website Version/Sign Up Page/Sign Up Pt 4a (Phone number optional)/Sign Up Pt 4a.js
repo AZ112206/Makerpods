@@ -62,9 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // jump straight to Pt 6.
   function goToIdVerification() {
     const role = sessionStorage.getItem("makerpodsUserRole");
-    if (role === "parent") {
-      goTo("../Sign Up Pt 5 (ID Verification)/Sign Up Parent/Sign Up 5a/Sign Up Pt 5a.html");
-    } else if (role === "student") {
+    if (role === "student") {
       goTo("../Sign Up Pt 5 (ID Verification)/Sign Up Student/Sign Up 5a/Sign Up Pt 5a.html");
     } else {
       // Adult flow: still needs ID verification, but skips the QR/scan step

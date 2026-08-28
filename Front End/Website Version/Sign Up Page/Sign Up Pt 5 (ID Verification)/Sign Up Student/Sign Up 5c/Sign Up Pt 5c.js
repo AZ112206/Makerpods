@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.addEventListener("click", () => {
       if (card) card.classList.add("page-exit");
       setTimeout(() => {
-        window.location.href = "../../Sign Up " + (role === "parent" ? "Parent" : "Student") + "/Sign Up 5b/Sign Up Pt 5b.html";
+        window.location.href = "../../Sign Up Student/Sign Up 5b/Sign Up Pt 5b.html";
       }, 280);
     });
   }

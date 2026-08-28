@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const backRoutes = {
     student: "../Sign Up Pt 2b/Sign Up Pt 2b Student/Sign Up Pt 2b Student.html",
-    parent: "../Sign Up Pt 2b/Sign Up Pt 2b Parent/Sign Up Pt 2b Parent.html",
     adult: "../Sign Up Pt 2b/Sign Up Pt 2b Adult/Sign Up Pt 2b Adult.html"
   };
 

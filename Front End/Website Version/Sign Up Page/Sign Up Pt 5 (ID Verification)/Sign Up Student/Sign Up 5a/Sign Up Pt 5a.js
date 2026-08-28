@@ -110,8 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       // Otherwise (Open verification), continue to 5b (QR generation).
-      const folder = role === "parent" ? "Parent" : "Student";
-      window.location.href = "../../Sign Up " + folder + "/Sign Up 5b/Sign Up Pt 5b.html";
+      window.location.href = "../../Sign Up Student/Sign Up 5b/Sign Up Pt 5b.html";
     }, 280);
   }
 
@@ -130,8 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("makerpodsIdVerificationChoice", "opened");
     if (card) card.classList.add("page-exit");
     setTimeout(() => {
-      const folder = role === "parent" ? "Parent" : "Student";
-      window.location.href = "../../Sign Up " + folder + "/Sign Up 5b/Sign Up Pt 5b.html";
+      window.location.href = "../../Sign Up Student/Sign Up 5b/Sign Up Pt 5b.html";
     }, 280);
   });
 

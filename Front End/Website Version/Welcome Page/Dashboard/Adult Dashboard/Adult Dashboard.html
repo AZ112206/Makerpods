@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Makerpods - Adult Dashboard</title>
   <link rel="stylesheet" href="Adult Dashboard.css" />
-  <link rel="stylesheet" href="../../Front End/Website Version/assets/css/site-logo.css" />
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
 </head>
 <body>
 
   <!-- Top strip (full-width, fixed, logo sits at its left edge) -->
   <header class="top-strip" aria-label="Top navigation bar">
-    <a href="../../Front End/Website Version/Home Page/Home Page.html" class="top-strip-logo" aria-label="Makerpods Home">
-      <img src="../../Front End/Website Version/assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
+    <a href="Adult Dashboard.html" class="top-strip-logo" aria-label="Makerpods Home">
+      <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
     </a>
+    <form class="top-strip-search" role="search" aria-label="Search Makerpods">
+      <span class="top-strip-search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="search" class="top-strip-search-input" id="dashboard-search" placeholder="Search Makerpods" aria-label="Search Makerpods" />
+    </form>
   </header>
 
   <main class="dashboard">
@@ -29,13 +35,18 @@
           </div>
           <div class="sidebar-profile-text">
             <span class="sidebar-profile-name">Alex Rivera</span>
-            <span class="sidebar-profile-role">Adult Maker</span>
-            <span class="sidebar-profile-settings">Settings</span>
           </div>
         </div>
 
         <nav class="dashboard-nav" aria-label="Dashboard navigation">
-          <button class="dashboard-nav-item active" data-panel="overview" aria-label="Overview">
+          <button class="dashboard-nav-item active" data-panel="home" aria-label="Home">
+            <span class="dashboard-nav-icon rose">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>
+            </span>
+            <span class="dashboard-nav-label">Home</span>
+          </button>
+
+          <button class="dashboard-nav-item" data-panel="overview" aria-label="Overview">
             <span class="dashboard-nav-icon indigo">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             </span>
@@ -90,12 +101,42 @@
       <!-- Main Content Area -->
       <section class="dashboard-panel">
         <div class="dashboard-panel-header">
-          <h2 id="dashboard-panel-title">Overview</h2>
-          <p id="dashboard-panel-desc">Welcome back. Here's your snapshot.</p>
+          <h2 id="dashboard-panel-title">Home</h2>
+          <p id="dashboard-panel-desc">Welcome to Makerpods. Your home for building and sharing.</p>
         </div>
 
         <div class="dashboard-panel-body">
-          <div class="dashboard-panel-content active" id="panel-overview">
+          <div class="dashboard-panel-content active" id="panel-home">
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon indigo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Welcome aboard</span>
+                <span class="dashboard-card-desc">Your account is set up. Explore the dashboard to get started.</span>
+              </div>
+            </div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon mint">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Start your first project</span>
+                <span class="dashboard-card-desc">Open the Projects tab to begin a new build.</span>
+              </div>
+            </div>
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon sky">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Join the community</span>
+                <span class="dashboard-card-desc">See what other makers are sharing right now.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-panel-content" id="panel-overview">
             <div class="dashboard-card">
               <div class="dashboard-card-icon indigo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>

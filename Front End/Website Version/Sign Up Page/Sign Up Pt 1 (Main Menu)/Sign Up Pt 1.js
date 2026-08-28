@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const roleRoutes = {
     student: "../Sign Up Pt 2a/Sign Up Pt 2a Student/Sign Up Pt 2a Student.html",
-    parent: "../Sign Up Pt 2a/Sign Up Pt 2a Parent/Sign Up Pt 2a Parent.html",
     adult: "../Sign Up Pt 2a/Sign Up Pt 2a Adult/Sign Up Pt 2a Adult.html"
   };
 
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (backButton) {
     backButton.addEventListener("click", () => {
-      goTo("../../Home Page/Home Page.html");
+      goTo("../../Landing Page/Landing Page.html");
     });
   }
 

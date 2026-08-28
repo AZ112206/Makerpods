@@ -145,7 +145,7 @@ body {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Logo tile at the left edge of the strip — same design as Home Page site-logo */
+/* Logo tile at the left edge of the strip — same design as Landing Page site-logo */
 .top-strip-logo {
   display: inline-flex;
   align-items: center;
@@ -213,9 +213,9 @@ body {
 }
 
 .settings-sidebar {
-  width: 260px;
+  width: 290px;
   flex-shrink: 0;
-  padding: 24px 20px;
+  padding: 28px 22px;
   border-right: 1px solid var(--border-subtle);
   background: rgba(var(--card-bg-rgb), 0.55);
   backdrop-filter: blur(20px);
@@ -238,8 +238,8 @@ body {
 }
 
 .sidebar-profile-avatar {
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366F1 0%, #10B981 100%);
   display: flex;
@@ -258,22 +258,22 @@ body {
 }
 
 .sidebar-profile-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .sidebar-profile-role {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.sidebar-profile-settings {
-  font-size: 12px;
-  font-weight: 600;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 6px auto 0;
+  padding: 4px 14px;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--primary-indigo);
-  margin-top: 2px;
+  text-align: center;
+  letter-spacing: -0.3px;
 }
 
 .settings-nav {
@@ -286,7 +286,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 13px 16px;
   border: none;
   background: none;
   border-radius: 14px;
@@ -327,8 +327,8 @@ body {
 }
 
 .settings-nav-icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -372,7 +372,7 @@ body {
 }
 
 .settings-nav-label {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -384,15 +384,15 @@ body {
 .settings-panel {
   flex: 1;
   min-width: 0;
-  padding: 32px 48px 48px;
+  padding: 40px 56px 56px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
   max-width: 100%;
 }
 
 .settings-panel-header h2 {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
   color: var(--text-main);
   margin: 0 0 6px 0;
@@ -401,7 +401,7 @@ body {
 
 .settings-panel-header p {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 15px;
   margin: 0;
 }
 
@@ -439,6 +439,16 @@ body {
   background-color: rgba(129, 140, 248, 0.08);
 }
 
+.settings-item-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.settings-item-link:focus-visible {
+  outline: 2px solid var(--primary-indigo);
+  outline-offset: 2px;
+}
+
 .settings-panel-content .settings-item.danger:hover {
   background-color: rgba(244, 63, 94, 0.06);
 }
@@ -455,7 +465,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 16px 22px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   border: none;
@@ -487,8 +497,8 @@ body {
 }
 
 .settings-item-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -540,7 +550,7 @@ body {
 }
 
 .settings-item-label {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-main);
   white-space: nowrap;
@@ -549,7 +559,7 @@ body {
 }
 
 .settings-item-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;

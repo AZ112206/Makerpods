@@ -109,9 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
         return;
       }
-      // Otherwise (Open verification), continue to 5b (QR generation).
-      const folder = role === "parent" ? "Parent" : "Student";
-      window.location.href = "../../Sign Up " + folder + "/Sign Up 5b/Sign Up Pt 5b.html";
+      // Adults skip the QR family-link step (5b/5c) entirely.
+      if (role === "adult") {
+        window.location.href = "../../../Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html";
+        return;
+      }
+      // Otherwise (student), continue to 5b (QR generation).
+      window.location.href = "../../Sign Up Student/Sign Up 5b/Sign Up Pt 5b.html";
     }, 280);
   }
 

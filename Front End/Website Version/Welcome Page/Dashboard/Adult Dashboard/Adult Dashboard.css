@@ -61,6 +61,58 @@
 }
 
 /* ==========================================
+   Surface Mode: Transparent (frosted glass) overrides
+   Mirrors Settings.css so the dashboard honors the
+   transparency toggle wired in Settings.html.
+   ========================================== */
+
+[data-surface-mode="transparent"] .top-strip {
+  background: rgba(var(--card-bg-rgb), 0.36);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+[data-surface-mode="transparent"] .dashboard-sidebar {
+  background: rgba(var(--card-bg-rgb), 0.32);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+[data-surface-mode="transparent"] .dashboard-card {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+[data-surface-mode="transparent"] .dashboard-card:hover {
+  background-color: rgba(var(--card-bg-rgb), 0.45);
+}
+
+[data-surface-mode="transparent"] .dashboard-placeholder {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+[data-surface-mode="transparent"] .dashboard-nav-item {
+  background-color: transparent;
+}
+
+[data-surface-mode="transparent"] .dashboard-nav-item:hover {
+  background-color: rgba(var(--card-bg-rgb), 0.45);
+}
+
+[data-surface-mode="transparent"] .dashboard-nav-item.active {
+  background-color: rgba(99, 102, 241, 0.12);
+}
+
+[data-surface-mode="transparent"] .top-strip-search {
+  background: rgba(var(--card-bg-rgb), 0.32);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ==========================================
    Core Layout & Vista Mesh Background (full screen)
    ========================================== */
 
@@ -134,6 +186,63 @@ body {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+/* Search bar — starts at the sidebar's right edge (260px + 24px strip padding) */
+.top-strip-search {
+  position: absolute;
+  top: 50%;
+  left: 284px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 360px;
+  max-width: calc(100% - 308px);
+  padding: 0 14px;
+  height: 44px;
+  background: rgba(var(--card-bg-rgb), 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.top-strip-search:focus-within {
+  border-color: var(--primary-indigo);
+  background: rgba(var(--card-bg-rgb), 0.7);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.top-strip-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.top-strip-search:focus-within .top-strip-search-icon {
+  color: var(--primary-indigo);
+}
+
+.top-strip-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.top-strip-search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
 }
 
 /* ==========================================
@@ -302,6 +411,11 @@ body {
 .dashboard-nav-icon.violet {
   background-color: rgba(139, 92, 246, 0.12);
   color: #8B5CF6;
+}
+
+.dashboard-nav-icon.rose {
+  background-color: rgba(244, 63, 94, 0.12);
+  color: #F43F5E;
 }
 
 .dashboard-nav-label {
@@ -546,5 +660,14 @@ body {
 
   .dashboard-panel-header h2 {
     font-size: 22px;
+  }
+
+  .top-strip-search {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    height: 40px;
   }
 }
