@@ -1,9 +1,9 @@
 /* ==========================================
-   Makerpods Site Logo (fixed top-left, links home)
+   Makerpods Site Logo (fixed top-left, visual only)
    Shared across all pages.
    ========================================== */
 
-.site-logo-link {
+.site-logo {
   position: fixed;
   top: 18px;
   left: 18px;
@@ -21,19 +21,8 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  text-decoration: none;
   line-height: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.site-logo-link:hover,
-.site-logo-link:focus-visible {
-  transform: scale(1.05);
-  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.35);
-}
-
-.site-logo-link:active {
-  transform: scale(0.97);
+  pointer-events: none;
 }
 
 .site-logo-img {
@@ -46,7 +35,7 @@
 }
 
 @media (max-width: 480px) {
-  .site-logo-link {
+  .site-logo {
     top: 12px;
     left: 12px;
     width: 52px;

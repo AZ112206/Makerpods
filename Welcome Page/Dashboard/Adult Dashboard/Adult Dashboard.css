@@ -1,0 +1,436 @@
+/* ==========================================
+   Makerpods Design System: Dual-Theme Engine
+   ========================================== */
+
+/* 1. Default: Original Light Theme Variables */
+:root {
+  --primary-indigo: #6366F1;
+  --indigo-hover: #4F46E5;
+  --mint-accent: #10B981;
+  --mint-hover: #059669;
+  
+  --bg-canvas: #F8FAFC;          
+  --card-bg: #FFFFFF;            
+  --card-bg-rgb: 255, 255, 255;
+  --border-subtle: #E2E8F0;      
+  --text-main: #1E293B;          
+  --text-muted: #64748B;         
+  --card-hover-shadow: rgba(99, 102, 241, 0.18);
+
+  /* Light Mesh Gradients */
+  --mesh-1: rgba(99, 102, 241, 0.35);
+  --mesh-2: rgba(16, 185, 129, 0.25);
+  --mesh-3: rgba(79, 70, 229, 0.2);
+}
+
+/* 2. New Dark Mode Theme Variables */
+[data-theme="dark"] {
+  --primary-indigo: #818CF8;
+  --indigo-hover: #6366F1;
+  --mint-accent: #34D399;
+
+  --bg-canvas: #090D16;
+  --card-bg: #111827;
+  --card-bg-rgb: 17, 24, 39;
+  --border-subtle: #1F2937;
+  --text-main: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --card-hover-shadow: rgba(129, 140, 248, 0.25);
+
+  /* Dark Mesh Gradients */
+  --mesh-1: rgba(99, 102, 241, 0.25);
+  --mesh-2: rgba(16, 185, 129, 0.15);
+  --mesh-3: rgba(79, 70, 229, 0.22);
+}
+
+[data-surface-mode="transparent"] .signup-container {
+  background: rgba(var(--card-bg-rgb), 0.36);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--border-subtle);
+}
+
+[data-surface-mode="transparent"] .role-card {
+  background-color: rgba(var(--card-bg-rgb), 0.32);
+}
+
+[data-surface-mode="transparent"] .role-card::after {
+  background-color: rgba(var(--card-bg-rgb), 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary-indigo: #818CF8;
+    --indigo-hover: #6366F1;
+    --mint-accent: #34D399;
+
+    --bg-canvas: #090D16;
+    --card-bg: #111827;
+    --card-bg-rgb: 17, 24, 39;
+    --border-subtle: #1F2937;
+    --text-main: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --card-hover-shadow: rgba(129, 140, 248, 0.25);
+
+    --mesh-1: rgba(99, 102, 241, 0.25);
+    --mesh-2: rgba(16, 185, 129, 0.15);
+    --mesh-3: rgba(79, 70, 229, 0.22);
+  }
+}
+
+/* ==========================================
+   Core Layout & Vista Mesh Background
+   ========================================== */
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(at 15% 15%, var(--mesh-1) 0px, transparent 55%),
+    radial-gradient(at 85% 85%, var(--mesh-2) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, var(--mesh-3) 0px, transparent 70%);
+  background-attachment: fixed;
+  transition: background-color 0.3s ease;
+}
+
+/* The Central Floating Frosted Glass Box */
+.signup-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 40px;
+  background: rgba(var(--card-bg-rgb), 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 32px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.35), 
+    0 0 0 1px var(--border-subtle);
+  z-index: 10;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  animation: page-fade-in 0.5s ease both;
+}
+
+.signup-container.page-exit {
+  animation: page-fade-out 0.32s ease forwards;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes page-fade-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-18px) scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signup-container,
+  .signup-container.page-exit {
+    animation: none;
+  }
+}
+
+/* Header Text Layout */
+.signup-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.signup-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.signup-header p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Role Cards Grid Container */
+.role-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Log In Link: centered, follows current theme/mode text color */
+.log-in-link {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.log-in-link a {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.log-in-link a:hover {
+  color: var(--primary-indigo);
+}
+
+/* Individual Role Card Style */
+.role-card {
+  position: relative;
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px 24px;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--border-subtle);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+
+.role-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.22);
+}
+
+/* The Rotating Clockwise Glow Border on Hover */
+.role-card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 22px;
+  background: transparent;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.role-card:hover::before {
+  opacity: 0;
+  animation: none;
+}
+
+.role-card::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background-color: var(--card-bg);
+  border-radius: 18px;
+  z-index: -1;
+  transition: background-color 0.3s ease;
+}
+
+.role-icon {
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--border-subtle);
+  border-radius: 14px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.role-icon svg {
+  display: block;
+}
+
+.gear-option-btn span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-content h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+}
+
+.role-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Selected State */
+.role-card.selected {
+  border-color: var(--primary-indigo);
+  background-color: rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.role-card.selected::before {
+  opacity: 0;
+}
+
+.role-card.selected .role-icon {
+  background-color: var(--primary-indigo);
+  color: #FFFFFF;
+}
+
+/* The Full Pill-Shaped Action Button */
+.pill-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-indigo);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px 32px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.pill-button:hover:not(:disabled) {
+  background-color: var(--indigo-hover);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+}
+
+.pill-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pill-button:disabled {
+  background-color: var(--border-subtle);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pill-button-indigo {
+  background-color: var(--primary-indigo);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.pill-button-indigo:hover:not(:disabled) {
+  background-color: var(--indigo-hover);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+}
+
+.pill-button-mint {
+  background-color: var(--mint-accent);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.pill-button-mint:hover:not(:disabled) {
+  background-color: var(--mint-hover);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-actions .pill-button {
+  width: auto;
+  flex: 1;
+}
+
+/* ==========================================
+   Gear Settings Toggle (FAB)
+   ========================================== */
+
+.gear-toggle-container {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.gear-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+
+.gear-toggle-container:hover .gear-options {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.gear-main-btn,
+.gear-option-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(var(--card-bg-rgb), 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid var(--border-subtle);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gear-option-btn {
+  width: 46px;
+  height: 46px;
+}
+
+.gear-main-btn:hover {
+  transform: rotate(45deg) scale(1.08);
+}
+
+/* Light mode: indigo hover */
+:root:not([data-theme="dark"]) .gear-option-btn:hover {
+  background-color: var(--primary-indigo);
+  border-color: var(--primary-indigo);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+  transform: scale(1.12);
+}
+
+/* Dark mode: mint hover */
+[data-theme="dark"] .gear-option-btn:hover {
+  background-color: var(--mint-accent);
+  border-color: var(--mint-accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(52, 211, 153, 0.4);
+  transform: scale(1.12);
+}
+
+[data-surface-mode="transparent"] .gear-main-btn,
+[data-surface-mode="transparent"] .gear-option-btn {
+  background: rgba(var(--card-bg-rgb), 0.3);
+}
