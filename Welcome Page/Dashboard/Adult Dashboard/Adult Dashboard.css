@@ -2,19 +2,18 @@
    Makerpods Design System: Dual-Theme Engine
    ========================================== */
 
-/* 1. Default: Original Light Theme Variables */
 :root {
   --primary-indigo: #6366F1;
   --indigo-hover: #4F46E5;
   --mint-accent: #10B981;
   --mint-hover: #059669;
-  
-  --bg-canvas: #F8FAFC;          
-  --card-bg: #FFFFFF;            
+
+  --bg-canvas: #F8FAFC;
+  --card-bg: #FFFFFF;
   --card-bg-rgb: 255, 255, 255;
-  --border-subtle: #E2E8F0;      
-  --text-main: #1E293B;          
-  --text-muted: #64748B;         
+  --border-subtle: #E2E8F0;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
   --card-hover-shadow: rgba(99, 102, 241, 0.18);
 
   /* Light Mesh Gradients */
@@ -23,7 +22,6 @@
   --mesh-3: rgba(79, 70, 229, 0.2);
 }
 
-/* 2. New Dark Mode Theme Variables */
 [data-theme="dark"] {
   --primary-indigo: #818CF8;
   --indigo-hover: #6366F1;
@@ -37,25 +35,9 @@
   --text-muted: #9CA3AF;
   --card-hover-shadow: rgba(129, 140, 248, 0.25);
 
-  /* Dark Mesh Gradients */
   --mesh-1: rgba(99, 102, 241, 0.25);
   --mesh-2: rgba(16, 185, 129, 0.15);
   --mesh-3: rgba(79, 70, 229, 0.22);
-}
-
-[data-surface-mode="transparent"] .signup-container {
-  background: rgba(var(--card-bg-rgb), 0.36);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--border-subtle);
-}
-
-[data-surface-mode="transparent"] .role-card {
-  background-color: rgba(var(--card-bg-rgb), 0.32);
-}
-
-[data-surface-mode="transparent"] .role-card::after {
-  background-color: rgba(var(--card-bg-rgb), 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -79,358 +61,490 @@
 }
 
 /* ==========================================
-   Core Layout & Vista Mesh Background
+   Core Layout & Vista Mesh Background (full screen)
    ========================================== */
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   background-color: var(--bg-canvas);
-  background-image: 
+  background-image:
     radial-gradient(at 15% 15%, var(--mesh-1) 0px, transparent 55%),
     radial-gradient(at 85% 85%, var(--mesh-2) 0px, transparent 55%),
     radial-gradient(at 50% 50%, var(--mesh-3) 0px, transparent 70%);
   background-attachment: fixed;
   transition: background-color 0.3s ease;
+  display: block;
 }
 
-/* The Central Floating Frosted Glass Box */
-.signup-container {
-  position: relative;
+/* ==========================================
+   Top Strip (full-width, fixed, locked together with sidebar)
+   ========================================== */
+
+.top-strip {
+  position: relative;           /* part of the page flow — scrolls with the page */
+  z-index: 500;
   width: 100%;
-  max-width: 520px;
-  padding: 40px;
-  background: rgba(var(--card-bg-rgb), 0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 32px;
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.35), 
-    0 0 0 1px var(--border-subtle);
-  z-index: 10;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  animation: page-fade-in 0.5s ease both;
+  height: 88px;                 /* 12px top + 64px logo + 12px bottom = even gap */
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  background: rgba(var(--card-bg-rgb), 0.55);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.signup-container.page-exit {
-  animation: page-fade-out 0.32s ease forwards;
+/* Logo tile at the left edge of the strip — same design as Home Page site-logo */
+.top-strip-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 0;
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  background: rgba(9, 13, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes page-fade-in {
-  from { opacity: 0; transform: translateY(18px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.top-strip-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
 }
 
-@keyframes page-fade-out {
-  from { opacity: 1; transform: translateY(0) scale(1); }
-  to { opacity: 0; transform: translateY(-18px) scale(0.98); }
+.top-strip-logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .signup-container,
-  .signup-container.page-exit {
-    animation: none;
-  }
+/* ==========================================
+   Dashboard Layout (page-level scroll, sidebar is a normal block)
+   ========================================== */
+
+.dashboard {
+  width: 100%;
+  display: flex;
 }
 
-/* Header Text Layout */
-.signup-header {
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+/* The Rectangle (Sidebar) on the Left — part of the page flow, scrolls with the page */
+.dashboard-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 24px 20px;
+  border-right: 1px solid var(--border-subtle);
+  background: rgba(var(--card-bg-rgb), 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 88px);
+  overflow: visible;
+}
+
+/* Profile circle at the top of the sidebar, above the first tab */
+.sidebar-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366F1 0%, #10B981 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.28);
+}
+
+.sidebar-profile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   text-align: center;
-  margin-bottom: 32px;
 }
 
-.signup-header h1 {
-  font-size: 28px;
+.sidebar-profile-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.sidebar-profile-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.sidebar-profile-settings {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-indigo);
+  margin-top: 2px;
+}
+
+.dashboard-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: none;
+  background: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-muted);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: left;
+  width: 100%;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dashboard-nav-item:hover {
+  background-color: rgba(99, 102, 241, 0.06);
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .dashboard-nav-item:hover {
+  background-color: rgba(129, 140, 248, 0.08);
+}
+
+.dashboard-nav-item.active {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-indigo);
+}
+
+[data-theme="dark"] .dashboard-nav-item.active {
+  background-color: rgba(129, 140, 248, 0.16);
+}
+
+.dashboard-nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dashboard-nav-icon.indigo {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-indigo);
+}
+
+.dashboard-nav-icon.mint {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--mint-accent);
+}
+
+.dashboard-nav-icon.sky {
+  background-color: rgba(14, 165, 233, 0.12);
+  color: #0EA5E9;
+}
+
+.dashboard-nav-icon.amber {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #F59E0B;
+}
+
+.dashboard-nav-icon.pink {
+  background-color: rgba(236, 72, 153, 0.12);
+  color: #EC4899;
+}
+
+.dashboard-nav-icon.teal {
+  background-color: rgba(20, 184, 166, 0.12);
+  color: #14B8A6;
+}
+
+.dashboard-nav-icon.violet {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #8B5CF6;
+}
+
+.dashboard-nav-label {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   Main Panel (page-level scroll, no internal scroll)
+   ========================================== */
+
+.dashboard-panel {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 48px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 100%;
+}
+
+.dashboard-panel-header h2 {
+  font-size: 26px;
   font-weight: 800;
   color: var(--text-main);
-  margin-bottom: 8px;
+  margin: 0 0 6px 0;
   letter-spacing: -0.5px;
 }
 
-.signup-header p {
+.dashboard-panel-header p {
   color: var(--text-muted);
   font-size: 15px;
   margin: 0;
 }
 
-/* Role Cards Grid Container */
-.role-grid {
+.dashboard-panel-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: visible;           /* no internal scroll — page scrolls */
 }
 
-/* Log In Link: centered, follows current theme/mode text color */
-.log-in-link {
-  text-align: center;
-  margin-bottom: 16px;
+.dashboard-panel-content {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.log-in-link a {
-  color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s ease;
+.dashboard-panel-content.active {
+  display: flex;
 }
 
-.log-in-link a:hover {
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 18px 22px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
+}
+
+.dashboard-card:hover {
+  background-color: rgba(99, 102, 241, 0.06);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .dashboard-card:hover {
+  background-color: rgba(129, 140, 248, 0.08);
+}
+
+.dashboard-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dashboard-card-icon.indigo {
+  background-color: rgba(99, 102, 241, 0.12);
   color: var(--primary-indigo);
 }
 
-/* Individual Role Card Style */
-.role-card {
-  position: relative;
-  background-color: var(--card-bg);
-  border-radius: 20px;
-  padding: 20px 24px;
-  cursor: pointer;
-  overflow: hidden;
-  border: 2px solid var(--border-subtle);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+.dashboard-card-icon.mint {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--mint-accent);
+}
+
+.dashboard-card-icon.sky {
+  background-color: rgba(14, 165, 233, 0.12);
+  color: #0EA5E9;
+}
+
+.dashboard-card-text {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  z-index: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
-.role-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.22);
-}
-
-/* The Rotating Clockwise Glow Border on Hover */
-.role-card::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 22px;
-  background: transparent;
-  z-index: -2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.role-card:hover::before {
-  opacity: 0;
-  animation: none;
-}
-
-.role-card::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background-color: var(--card-bg);
-  border-radius: 18px;
-  z-index: -1;
-  transition: background-color 0.3s ease;
-}
-
-.role-icon {
-  font-size: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background-color: var(--border-subtle);
-  border-radius: 14px;
-  flex-shrink: 0;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.role-icon svg {
-  display: block;
-}
-
-.gear-option-btn span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.role-content h3 {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0 0 4px 0;
-}
-
-.role-content p {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-/* Selected State */
-.role-card.selected {
-  border-color: var(--primary-indigo);
-  background-color: rgba(99, 102, 241, 0.1);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-}
-
-.role-card.selected::before {
-  opacity: 0;
-}
-
-.role-card.selected .role-icon {
-  background-color: var(--primary-indigo);
-  color: #FFFFFF;
-}
-
-/* The Full Pill-Shaped Action Button */
-.pill-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-indigo);
-  color: #FFFFFF;
+.dashboard-card-label {
+  font-size: 15px;
   font-weight: 600;
-  font-size: 16px;
-  padding: 16px 32px;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  color: var(--text-main);
 }
 
-.pill-button:hover:not(:disabled) {
-  background-color: var(--indigo-hover);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
-}
-
-.pill-button:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-.pill-button:disabled {
-  background-color: var(--border-subtle);
+.dashboard-card-desc {
+  font-size: 13px;
   color: var(--text-muted);
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
 }
 
-.pill-button-indigo {
-  background-color: var(--primary-indigo);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-}
-
-.pill-button-indigo:hover:not(:disabled) {
-  background-color: var(--indigo-hover);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
-}
-
-.pill-button-mint {
-  background-color: var(--mint-accent);
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-}
-
-.pill-button-mint:hover:not(:disabled) {
-  background-color: var(--mint-hover);
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
-}
-
-.form-actions {
+.dashboard-placeholder {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+  color: var(--text-muted);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
 }
 
-.form-actions .pill-button {
-  width: auto;
-  flex: 1;
+.dashboard-placeholder p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.dashboard-placeholder-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-placeholder-icon.indigo {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-indigo);
+}
+
+.dashboard-placeholder-icon.mint {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--mint-accent);
+}
+
+.dashboard-placeholder-icon.sky {
+  background-color: rgba(14, 165, 233, 0.12);
+  color: #0EA5E9;
+}
+
+.dashboard-placeholder-icon.amber {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #F59E0B;
+}
+
+.dashboard-placeholder-icon.pink {
+  background-color: rgba(236, 72, 153, 0.12);
+  color: #EC4899;
+}
+
+.dashboard-placeholder-icon.teal {
+  background-color: rgba(20, 184, 166, 0.12);
+  color: #14B8A6;
+}
+
+.dashboard-placeholder-icon.violet {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #8B5CF6;
 }
 
 /* ==========================================
-   Gear Settings Toggle (FAB)
+   Responsive
    ========================================== */
 
-.gear-toggle-container {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
-}
+@media (max-width: 860px) {
+  .dashboard-body {
+    flex-direction: column;
+  }
 
-.gear-options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  transform: translateY(20px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
-}
+  .dashboard-sidebar {
+    position: static;
+    width: 100%;
+    min-height: auto;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-y: visible;
+  }
 
-.gear-toggle-container:hover .gear-options {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: all;
-}
+  .sidebar-profile {
+    flex-direction: row;
+    gap: 14px;
+    padding: 8px 0 16px;
+  }
 
-.gear-main-btn,
-.gear-option-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(var(--card-bg-rgb), 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid var(--border-subtle);
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
+  .sidebar-profile-avatar {
+    width: 56px;
+    height: 56px;
+  }
 
-.gear-option-btn {
-  width: 46px;
-  height: 46px;
-}
+  .sidebar-profile-text {
+    align-items: flex-start;
+    text-align: left;
+  }
 
-.gear-main-btn:hover {
-  transform: rotate(45deg) scale(1.08);
-}
+  .dashboard-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+  }
 
-/* Light mode: indigo hover */
-:root:not([data-theme="dark"]) .gear-option-btn:hover {
-  background-color: var(--primary-indigo);
-  border-color: var(--primary-indigo);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
-  transform: scale(1.12);
-}
+  .dashboard-nav-item {
+    flex-shrink: 0;
+    padding: 10px 14px;
+  }
 
-/* Dark mode: mint hover */
-[data-theme="dark"] .gear-option-btn:hover {
-  background-color: var(--mint-accent);
-  border-color: var(--mint-accent);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(52, 211, 153, 0.4);
-  transform: scale(1.12);
-}
+  .dashboard-nav-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
 
-[data-surface-mode="transparent"] .gear-main-btn,
-[data-surface-mode="transparent"] .gear-option-btn {
-  background: rgba(var(--card-bg-rgb), 0.3);
+  .dashboard-nav-label {
+    font-size: 14px;
+  }
+
+  .dashboard-panel {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+
+  .dashboard-panel-header h2 {
+    font-size: 22px;
+  }
 }

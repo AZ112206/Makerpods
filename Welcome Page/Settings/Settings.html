@@ -9,14 +9,28 @@
 </head>
 <body>
 
-          <!-- Site Logo: fixed top-left, links back to Home on every page -->
-  <a href="../../Front End/Website Version/Home Page/Home Page.html" class="site-logo-link" aria-label="Makerpods Home">
-    <img src="../../Front End/Website Version/assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
-  </a>
+  <!-- Top strip (full-width, fixed, logo sits at its left edge) -->
+  <header class="top-strip" aria-label="Top navigation bar">
+    <a href="../../Front End/Website Version/Home Page/Home Page.html" class="top-strip-logo" aria-label="Makerpods Home">
+      <img src="../../Front End/Website Version/assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
+    </a>
+  </header>
 
     <main class="settings-container">
     <div class="settings-body">
     <aside class="settings-sidebar">
+      <!-- Profile circle above the first nav item (Appearance) -->
+      <div class="sidebar-profile" aria-label="User profile">
+        <div class="sidebar-profile-avatar" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="sidebar-profile-text">
+          <span class="sidebar-profile-name">Alex Rivera</span>
+          <span class="sidebar-profile-role">Adult Maker</span>
+          <span class="sidebar-profile-settings">Settings</span>
+        </div>
+      </div>
+
       <nav class="settings-nav">
         <button class="settings-nav-item active" data-panel="appearance" aria-label="Appearance settings">
           <span class="settings-nav-icon indigo">
