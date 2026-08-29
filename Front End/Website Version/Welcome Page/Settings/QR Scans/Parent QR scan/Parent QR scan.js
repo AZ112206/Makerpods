@@ -94,7 +94,7 @@
 
     if (cameraBtn) {
       cameraBtn.addEventListener("click", () => {
-        navigateAway("Code link.html");
+        navigateAway("../Parent Code link/Parent Code link.html");
       });
     }
 
