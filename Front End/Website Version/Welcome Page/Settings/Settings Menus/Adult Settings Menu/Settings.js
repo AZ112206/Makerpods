@@ -75,6 +75,21 @@ document.addEventListener("DOMContentLoaded", () => {
   applySavedTheme();
   applySavedSurfaceMode();
 
+  // Hide the Parent Mode row once the adult has linked at least one student.
+  // The QR Scan page sets `makerpodsParentModeLinked` to "true" after a
+  // successful scan; this hides the entry from the Privacy & Security
+  // panel so the user isn't prompted to set it up again.
+  const parentModeItem = document.getElementById("parent-mode-item");
+  if (parentModeItem) {
+    try {
+      if (localStorage.getItem("makerpodsParentModeLinked") === "true") {
+        parentModeItem.style.display = "none";
+      }
+    } catch (e) {
+      /* localStorage unavailable — leave the row visible */
+    }
+  }
+
   navItems.forEach((item) => {
     item.addEventListener("click", () => {
       switchPanel(item.dataset.panel);

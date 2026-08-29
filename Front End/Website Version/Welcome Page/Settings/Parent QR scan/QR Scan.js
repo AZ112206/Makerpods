@@ -26,10 +26,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (openCameraBtn) {
     openCameraBtn.addEventListener("click", () => {
-      // Placeholder: real camera/QR scanning is not yet wired.
-      openCameraBtn.textContent = "Camera unavailable in preview";
+      // Placeholder for the real camera/QR scan pipeline.
+      // Once a code is detected, mark Parent Mode as set up so the Adult
+      // Settings page hides its Parent Mode row, then send the user to the
+      // Parent Dashboard where they can see their linked students.
+      openCameraBtn.textContent = "Linking…";
       openCameraBtn.disabled = true;
       openCameraBtn.style.opacity = "0.7";
+
+      setTimeout(() => {
+        try {
+          localStorage.setItem("makerpodsParentModeLinked", "true");
+          localStorage.setItem(
+            "makerpodsLinkedStudent",
+            JSON.stringify({ id: "demo-student", linkedAt: Date.now() })
+          );
+        } catch (e) {
+          /* localStorage may be unavailable; continue to dashboard anyway */
+        }
+        window.location.href = "../../Dashboard/Parent Dashboard/Parent Dashboard.html";
+      }, 700);
     });
   }
 });
