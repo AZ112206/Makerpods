@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       adult: "makerpodsAdultLegalData"
     };
     const fallback = {
-      student: { name: "Son or daughter account", roleLabel: "Son or Daughter" },
+      student: { name: "Student account", roleLabel: "Student" },
       parent: { name: "Parent account", roleLabel: "Parent" },
       adult: { name: "Account", roleLabel: "Adult" }
     };
