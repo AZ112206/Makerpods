@@ -1,32 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const htmlElement = document.documentElement;
-  const toggleScanBtn = document.getElementById("toggle-scan-btn");
-  const scanSection = document.getElementById("scan-section");
   const openCameraBtn = document.getElementById("open-camera-btn");
   const cancelBtn = document.getElementById("cancel-btn");
   const selfQrContainer = document.getElementById("self-qr");
-
-  // Mirror Settings.js: read saved theme + surface mode from localStorage
-  // so the QR page matches the user's preferences.
-  function applySavedTheme() {
-    const savedTheme = localStorage.getItem("makerpodsTheme");
-    const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    htmlElement.setAttribute("data-theme", preferredTheme);
-  }
-
-  function applySavedSurfaceMode() {
-    const savedMode = localStorage.getItem("makerpodsSurfaceMode");
-    const preferredMode = savedMode === "solid" || savedMode === "transparent" ? savedMode : "transparent";
-    htmlElement.setAttribute("data-surface-mode", preferredMode);
-  }
-
-  applySavedTheme();
-  applySavedSurfaceMode();
-
-  window.addEventListener("storage", (event) => {
-    if (event.key === "makerpodsTheme") applySavedTheme();
-    if (event.key === "makerpodsSurfaceMode") applySavedSurfaceMode();
-  });
 
   // Build (and persist) a stable parent identifier so the QR encodes a
   // payload that another device can recognise. Falls back to an in-memory
@@ -45,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Render a real scannable QR into the hero viewport.
+  // Render a real scannable QR into the hero card.
   if (selfQrContainer && typeof QRCode !== "undefined") {
     const payload = "makerpods://parent/" + getOrCreateParentId();
     selfQrContainer.innerHTML = "";
@@ -59,26 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Toggle the secondary "scan a son or daughter" section in/out.
-  if (toggleScanBtn && scanSection) {
-    toggleScanBtn.addEventListener("click", () => {
-      const isHidden = scanSection.hasAttribute("hidden");
-      if (isHidden) {
-        scanSection.removeAttribute("hidden");
-        toggleScanBtn.textContent = "Hide scanner";
-      } else {
-        scanSection.setAttribute("hidden", "");
-        toggleScanBtn.textContent = "Scan your son or daughter's QR instead";
-      }
-    });
-  }
-
   if (openCameraBtn) {
     openCameraBtn.addEventListener("click", () => {
       // Placeholder for the real camera/QR scan pipeline.
-      // Once a code is detected, mark Parent Mode as set up so the Adult
-      // Settings page hides its Parent Mode row, then send the user to the
-      // Parent Dashboard where they can see their linked students.
+      // Once a code is detected, mark Parent Mode as set up so the
+      // Settings page hides its Parent Mode row, then send the user to
+      // the Parent Dashboard.
       openCameraBtn.textContent = "Linking…";
       openCameraBtn.disabled = true;
       openCameraBtn.style.opacity = "0.7";

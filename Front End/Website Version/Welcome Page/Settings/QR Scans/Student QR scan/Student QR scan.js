@@ -1,32 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const htmlElement = document.documentElement;
   const toggleShowBtn = document.getElementById("toggle-show-btn");
   const myQrSection = document.getElementById("my-qr-section");
   const openCameraBtn = document.getElementById("open-camera-btn");
   const cancelBtn = document.getElementById("cancel-btn");
   const selfQrContainer = document.getElementById("self-qr");
-
-  // Mirror Settings.js: read saved theme + surface mode from localStorage
-  // so the QR page matches the user's preferences.
-  function applySavedTheme() {
-    const savedTheme = localStorage.getItem("makerpodsTheme");
-    const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    htmlElement.setAttribute("data-theme", preferredTheme);
-  }
-
-  function applySavedSurfaceMode() {
-    const savedMode = localStorage.getItem("makerpodsSurfaceMode");
-    const preferredMode = savedMode === "solid" || savedMode === "transparent" ? savedMode : "transparent";
-    htmlElement.setAttribute("data-surface-mode", preferredMode);
-  }
-
-  applySavedTheme();
-  applySavedSurfaceMode();
-
-  window.addEventListener("storage", (event) => {
-    if (event.key === "makerpodsTheme") applySavedTheme();
-    if (event.key === "makerpodsSurfaceMode") applySavedSurfaceMode();
-  });
 
   // Build (and persist) a stable student identifier so the QR encodes a
   // payload that another device can recognise. Falls back to an in-memory
@@ -45,8 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Render a real scannable QR into the self-QR viewport.
-  if (selfQrContainer && typeof QRCode !== "undefined") {
+  // Render a real scannable QR into the self-QR panel whenever the user
+  // reveals it. (qrcodejs is idempotent enough to redraw on toggle, but we
+  // skip re-rendering if the panel is left hidden the first time.)
+  function renderStudentQr() {
+    if (!selfQrContainer || typeof QRCode === "undefined") return;
+    if (selfQrContainer.dataset.rendered === "1") return;
     const payload = "makerpods://student/" + getOrCreateStudentId();
     selfQrContainer.innerHTML = "";
     new QRCode(selfQrContainer, {
@@ -57,13 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
       colorLight: "#FFFFFF",
       correctLevel: QRCode.CorrectLevel.M,
     });
+    selfQrContainer.dataset.rendered = "1";
   }
 
-  // Toggle the secondary "show my QR" section in/out.
   if (toggleShowBtn && myQrSection) {
     toggleShowBtn.addEventListener("click", () => {
       const isHidden = myQrSection.hasAttribute("hidden");
       if (isHidden) {
+        renderStudentQr();
         myQrSection.removeAttribute("hidden");
         toggleShowBtn.textContent = "Hide my QR";
       } else {
