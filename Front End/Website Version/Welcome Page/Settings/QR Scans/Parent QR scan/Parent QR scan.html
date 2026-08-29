@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makerpods - Parent Mode: Your QR</title>
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
+  <link rel="stylesheet" href="Parent QR scan.css" />
+</head>
+<body>
+  <div class="site-logo" aria-label="Makerpods">
+    <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </div>
+
+  <main class="qr-card">
+    <a class="back-link" href="../Settings Menus/Parent Settings Menu/Settings.html" aria-label="Back to settings">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Back to Settings</span>
+    </a>
+
+    <div class="qr-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <line x1="14" y1="14" x2="14" y2="17" />
+        <line x1="14" y1="20" x2="17" y2="20" />
+        <line x1="20" y1="14" x2="20" y2="20" />
+        <line x1="14" y1="20" x2="14" y2="20" />
+        <line x1="17" y1="17" x2="17" y2="17" />
+        <line x1="20" y1="17" x2="20" y2="20" />
+        <line x1="17" y1="20" x2="17" y2="20" />
+      </svg>
+    </div>
+
+    <p class="eyebrow">Parent Mode</p>
+    <h1>Your QR code</h1>
+    <p class="qr-message">
+      Have your son or daughter scan this code in their Makerpods profile to
+      add you as their parent. They'll see your name and request approval.
+    </p>
+
+    <!-- Hero: parent's own QR code (a real scannable code) -->
+    <div class="qr-viewport qr-viewport-self" id="my-qr" aria-label="Your parent QR code">
+      <div id="self-qr" class="self-qr-canvas" role="img" aria-label="Your personal parent link QR code"></div>
+    </div>
+
+    <!-- Secondary: toggle to scan a son or daughter's QR instead -->
+    <button type="button" class="qr-button qr-button-ghost" id="toggle-scan-btn">
+      Scan your son or daughter's QR instead
+    </button>
+
+    <!-- Hidden scanner section, revealed by the button above -->
+    <div class="qr-scan-section" id="scan-section" hidden>
+      <div class="qr-viewport" aria-label="QR code scanner viewport">
+        <div class="qr-frame" aria-hidden="true">
+          <span class="qr-corner top-left"></span>
+          <span class="qr-corner top-right"></span>
+          <span class="qr-corner bottom-left"></span>
+          <span class="qr-corner bottom-right"></span>
+          <span class="qr-scanline" aria-hidden="true"></span>
+        </div>
+        <p class="qr-placeholder">Camera preview will appear here</p>
+      </div>
+      <button type="button" class="qr-button" id="open-camera-btn">Open Camera</button>
+    </div>
+
+    <!-- Footer actions: Cancel + Use code instead -->
+    <div class="qr-actions">
+      <button type="button" class="qr-button qr-button-mint" id="cancel-btn">Cancel</button>
+      <a class="qr-button qr-button-ghost" href="Code link.html">Use code instead</a>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="Parent QR scan.js"></script>
+</body>
+</html>

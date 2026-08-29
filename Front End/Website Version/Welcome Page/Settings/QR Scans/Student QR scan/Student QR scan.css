@@ -284,3 +284,161 @@ h1 {
   .qr-mark { width: 64px; height: 64px; }
   .qr-button { width: 100%; }
 }
+
+/* ==========================================
+   Self QR card (the user's own code)
+   ========================================== */
+
+.qr-viewport-self {
+  display: grid;
+  place-items: center;
+  background-color: #ffffff;
+  border-color: var(--primary-indigo);
+  box-shadow: 0 14px 30px rgba(99, 102, 241, 0.18);
+}
+
+[data-theme="dark"] .qr-viewport-self,
+:root:not([data-theme="light"]) .qr-viewport-self {
+  background-color: #F9FAFB;
+}
+
+.self-qr-canvas {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.self-qr-canvas img,
+.self-qr-canvas canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+  image-rendering: pixelated;
+}
+
+/* ==========================================
+   Hidden scan section (toggled in)
+   ========================================== */
+
+.qr-scan-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.qr-scan-section[hidden] { display: none; }
+
+/* ==========================================
+   Button variants
+   ========================================== */
+
+.qr-button-ghost {
+  background: transparent;
+  color: var(--primary-indigo);
+  border: 2px solid var(--primary-indigo);
+  box-shadow: none;
+  margin-top: 12px;
+}
+
+.qr-button-ghost:hover {
+  background-color: rgba(99, 102, 241, 0.08);
+  box-shadow: 0 8px 18px rgba(99, 102, 241, 0.18);
+  transform: translateY(-2px);
+}
+
+.qr-button-mint {
+  background-color: var(--mint-accent);
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.32);
+}
+
+.qr-button-mint:hover {
+  background-color: var(--mint-hover);
+  box-shadow: 0 14px 30px rgba(5, 150, 105, 0.4);
+}
+
+/* ==========================================
+   Footer actions row (Cancel + Use code)
+   ========================================== */
+
+.qr-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.qr-actions .qr-button {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 520px) {
+  .qr-actions { flex-direction: column-reverse; }
+  .qr-actions .qr-button { width: 100%; }
+}
+
+/* ==========================================
+   Manual code form
+   ========================================== */
+
+.code-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.code-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.code-field-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.code-field input {
+  width: 100%;
+  padding: 14px 16px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text-main);
+  background-color: rgba(var(--card-bg-rgb), 0.7);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.code-field input::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+.code-field input:focus {
+  border-color: var(--primary-indigo);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+}
+
+.qr-message-small {
+  margin-top: 14px;
+  margin-bottom: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makerpods - Use Code</title>
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
+  <link rel="stylesheet" href="Student QR scan.css" />
+</head>
+<body>
+  <div class="site-logo" aria-label="Makerpods">
+    <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </div>
+
+  <main class="qr-card">
+    <a class="back-link" href="Student QR scan.html" aria-label="Back to QR">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Back to QR</span>
+    </a>
+
+    <div class="qr-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <line x1="14" y1="14" x2="14" y2="17" />
+        <line x1="14" y1="20" x2="17" y2="20" />
+        <line x1="20" y1="14" x2="20" y2="20" />
+        <line x1="14" y1="20" x2="14" y2="20" />
+        <line x1="17" y1="17" x2="17" y2="17" />
+        <line x1="20" y1="17" x2="20" y2="20" />
+        <line x1="17" y1="20" x2="17" y2="20" />
+      </svg>
+    </div>
+
+    <p class="eyebrow">Link a Parent</p>
+    <h1>Enter your link code</h1>
+    <p class="qr-message">
+      Type the link code your parent gave you and their name. We'll match it
+      to their Makerpods profile and send them a request to confirm the link.
+    </p>
+
+    <form class="code-form" id="code-form" novalidate>
+      <label class="code-field">
+        <span class="code-field-label">Parent's link code</span>
+        <input type="text" id="code-input" name="code" placeholder="e.g. MP-A7K2-93QX" autocomplete="off" required />
+      </label>
+
+      <label class="code-field">
+        <span class="code-field-label">Parent's name</span>
+        <input type="text" id="parent-name" name="parentName" placeholder="e.g. Jordan Rivera" autocomplete="off" required />
+      </label>
+
+      <button type="submit" class="qr-button" id="confirm-btn">Confirm</button>
+    </form>
+
+    <div class="qr-actions">
+      <button type="button" class="qr-button qr-button-mint" id="cancel-btn">Cancel</button>
+      <a class="qr-button qr-button-ghost" href="Student QR scan.html">Use camera instead</a>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("code-form");
+      const codeInput = document.getElementById("code-input");
+      const nameInput = document.getElementById("parent-name");
+      const cancelBtn = document.getElementById("cancel-btn");
+
+      function applyMode() {
+        const html = document.documentElement;
+        const theme = localStorage.getItem("makerpodsTheme");
+        const preferredTheme = theme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        const surface = localStorage.getItem("makerpodsSurfaceMode") === "solid" ? "solid" : "transparent";
+        html.setAttribute("data-theme", preferredTheme);
+        html.setAttribute("data-surface-mode", surface);
+      }
+      applyMode();
+      window.addEventListener("storage", applyMode);
+
+      if (form) {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const code = codeInput.value.trim();
+          const name = nameInput.value.trim();
+          if (!code || !name) {
+            if (!code) codeInput.focus();
+            else nameInput.focus();
+            return;
+          }
+          try {
+            localStorage.setItem("makerpodsStudentLinkedToParent", "true");
+            localStorage.setItem(
+              "makerpodsLinkedParent",
+              JSON.stringify({ id: code, name: name, linkedAt: Date.now() })
+            );
+          } catch (e) { /* ignore */ }
+          window.location.href = "../../../Dashboard/Adult Dashboard/Adult Dashboard.html";
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+          window.location.href = "../Settings Menus/Adult Settings Menu/Settings.html";
+        });
+      }
+    });
+  </script>
+</body>
+</html>

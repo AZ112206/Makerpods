@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applySavedTheme();
   applySavedSurfaceMode();
 
-  // Hide the Parent Mode row once the adult has linked at least one student.
+  // Hide the Parent Mode row once the adult has linked at least one son or daughter.
   // The QR Scan page sets `makerpodsParentModeLinked` to "true" after a
   // successful scan; this hides the entry from the Privacy & Security
   // panel so the user isn't prompted to set it up again.

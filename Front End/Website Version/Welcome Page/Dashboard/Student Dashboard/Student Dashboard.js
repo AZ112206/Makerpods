@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     community: {
       title: "Community",
-      desc: "See what other students are making and sharing."
+      desc: "See what other kids are making and sharing."
     },
     analytics: {
       title: "Progress",
