@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parent Mode — Your QR code</title>
+  <title>Show this to your son or daughter — Makerpods</title>
   <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
   <link rel="stylesheet" href="Parent QR scan.css" />
 </head>
@@ -12,52 +12,52 @@
     <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
   </div>
 
-  <main class="verify-card" data-step="qr">
-    <a class="back-link" href="../Settings Menus/Parent Settings Menu/Settings.html" aria-label="Back to settings">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      <span>Back to Settings</span>
-    </a>
-
-    <div class="verify-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <line x1="14" y1="14" x2="14" y2="17" />
-        <line x1="14" y1="20" x2="17" y2="20" />
-        <line x1="20" y1="14" x2="20" y2="20" />
-        <line x1="14" y1="20" x2="14" y2="20" />
-        <line x1="17" y1="17" x2="17" y2="17" />
-        <line x1="20" y1="17" x2="20" y2="20" />
-        <line x1="17" y1="20" x2="17" y2="20" />
-      </svg>
-    </div>
-
+  <main class="qr-card" data-step="qr-generate">
     <p class="eyebrow">Parent Mode</p>
-    <h1>Your QR code</h1>
-    <p class="verify-lede">
-      Have your son or daughter scan this code in their Makerpods profile to
-      add you as their parent. They'll see your name and request approval.
+    <h1>Show this to your son or daughter</h1>
+    <p class="qr-lede">
+      Have your son or daughter open Makerpods on their phone and scan this
+      code from their parent account. It links your two accounts together
+      so they can approve and follow your work.
     </p>
 
-    <!-- Hero: parent's own scannable QR -->
-    <section class="qr-show" aria-label="Your parent QR code">
-      <div id="self-qr" class="qr-canvas" role="img" aria-label="Your personal parent link QR code"></div>
-      <p class="qr-caption">Open your camera app and point it at this code.</p>
-    </section>
+    <div class="qr-stage" aria-live="polite">
+      <div id="qr-frame" class="qr-frame" aria-label="Family-link QR code">
+        <!-- QR rendered here by Parent QR scan.js -->
+      </div>
+      <div class="qr-corner qr-corner-tl" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-tr" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-bl" aria-hidden="true"></div>
+      <div class="qr-corner qr-corner-br" aria-hidden="true"></div>
+    </div>
 
-    <div class="verify-actions">
-      <button type="button" id="cancel-btn" class="btn-back">Back</button>
-      <button type="button" id="open-camera-btn" class="btn-primary">
-        <span class="btn-primary-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <p class="qr-token-line">
+      <span class="qr-token-label">Code</span>
+      <span class="qr-token" id="qr-token">------</span>
+    </p>
+
+    <p class="qr-help">
+      If they can't scan, they can enter the code above manually on their
+      device.
+    </p>
+
+    <div class="qr-status" id="qr-status" role="status">
+      <span class="qr-status-dot" aria-hidden="true"></span>
+      <span class="qr-status-text">Waiting for scan…</span>
+    </div>
+
+    <div class="qr-actions">
+      <button type="button" id="back-btn" class="btn-back">Back</button>
+      <button type="button" id="open-camera-btn" class="btn-ghost">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
           </svg>
         </span>
-        Scan your son or daughter's QR
+        Scan their code instead
       </button>
-      <a class="btn-link" href="Code link.html">Enter code manually</a>
+      <button type="button" id="continue-btn" class="btn-primary">Continue</button>
     </div>
   </main>
 
