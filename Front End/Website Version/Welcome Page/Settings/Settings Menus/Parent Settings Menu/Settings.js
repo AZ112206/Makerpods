@@ -130,21 +130,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-  // ID Verification Redirect
-  const verifyBtn = document.getElementById("verify-id-btn");
-  if (verifyBtn) {
-    verifyBtn.addEventListener("click", async () => {
+    // ID Verification Redirect
+  const verifyItem = document.getElementById("verify-id-item");
+  if (verifyItem) {
+    verifyItem.addEventListener("click", async () => {
       try {
-        const baseUrl = window.location.origin || 'http://localhost:3000';
-        const successPath = '/Front End/Website Version/Welcome Page/Settings/Settings Menus/Parent Settings Menu/Settings.html';
-        const successUrl = new URL(successPath, baseUrl).toString();
+                const successUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Parent%20Settings%20Menu/Settings.html';
+        const cancelUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Parent%20Settings%20Menu/Settings.html';
 
         const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             successUrl: successUrl,
-            cancelUrl: window.location.href
+            cancelUrl: cancelUrl
           })
         });
         const data = await response.json();

@@ -73,35 +73,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function updateParentSetupLinks(verified) {
-    const parentModeItem = document.getElementById("parent-mode-item");
-    const parentAddChildItem = document.getElementById("parent-add-child-item");
-    const verifyItem = document.getElementById("verify-id-item");
-    const linkedAccountsItem = document.getElementById("linked-accounts-item");
+      const parentModeItem = document.getElementById("parent-mode-item");
+      const parentAddChildItem = document.getElementById("parent-add-child-item");
+      const verifyItem = document.getElementById("verify-id-item");
+      const linkedAccountsItem = document.getElementById("linked-accounts-item");
 
-    if (!parentModeItem || !parentAddChildItem) return;
+      if (!parentModeItem || !parentAddChildItem) return;
 
-    // 1. Determine which setup item to show
-    const isParentLinked = localStorage.getItem("makerpodsParentModeLinked") === "true";
-    const activeItem = isParentLinked ? parentAddChildItem : parentModeItem;
-    const inactiveItem = isParentLinked ? parentModeItem : parentAddChildItem;
-
-    if (inactiveItem) inactiveItem.style.display = "none";
-    activeItem.style.display = "flex";
-
-    // 2. Position based on verification status
-    if (!verified) {
-      // Place after verify-id-item
-      if (verifyItem && linkedAccountsItem) {
-        // Move it to be after verifyItem
-        verifyItem.parentNode.insertBefore(activeItem, verifyItem.nextSibling);
+      if (!verified) {
+        // Not verified: hide parent setup, show only Verify Your Identity
+        parentModeItem.style.display = "none";
+        parentAddChildItem.style.display = "none";
+        if (verifyItem) verifyItem.style.display = "flex";
+        return;
       }
-    } else {
-      // Place after linked-accounts-item
+
+      // Verified: hide Verify Your Identity, show the appropriate parent setup row
+      if (verifyItem) verifyItem.style.display = "none";
+
+      const isParentLinked = localStorage.getItem("makerpodsParentModeLinked") === "true";
+      const activeItem = isParentLinked ? parentAddChildItem : parentModeItem;
+      const inactiveItem = isParentLinked ? parentModeItem : parentAddChildItem;
+
+      if (inactiveItem) inactiveItem.style.display = "none";
+      activeItem.style.display = "flex";
+
+      // Position after Linked Accounts
       if (linkedAccountsItem) {
         linkedAccountsItem.parentNode.insertBefore(activeItem, linkedAccountsItem.nextSibling);
       }
     }
-  }
 
   async function checkVerificationStatus() {
     try {
@@ -163,16 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (verifyItem) {
     verifyItem.addEventListener("click", async () => {
       try {
-        const baseUrl = window.location.origin || 'http://localhost:3000';
-        const successPath = '/Front End/Website Version/Welcome Page/Settings/Settings Menus/Adult Settings Menu/Settings.html';
-        const successUrl = new URL(successPath, baseUrl).toString();
+                const successUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Adult%20Settings%20Menu/Settings.html';
+        const cancelUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Adult%20Settings%20Menu/Settings.html';
 
         const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             successUrl: successUrl,
-            cancelUrl: window.location.href
+            cancelUrl: cancelUrl
           })
         });
         const data = await response.json();
