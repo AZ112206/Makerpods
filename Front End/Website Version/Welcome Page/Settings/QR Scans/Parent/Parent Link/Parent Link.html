@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent Link — Makerpods</title>
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
+  <link rel="stylesheet" href="Parent Link.css" />
+</head>
+<body data-role="parent">
+  <div class="site-logo" aria-label="Makerpods">
+    <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="site-logo-img">
+  </div>
+
+  <main class="scan-card">
+    <!-- SHOW PANE: Default view for Parent -->
+    <div id="show-pane">
+      <p class="eyebrow">Parent Mode</p>
+      <h1>Show your QR code</h1>
+      <p class="scan-lede">
+        First, let your son or daughter scan this code with their device to begin the linking process.
+      </p>
+
+      <div class="qr-stage">
+        <div class="qr-frame" id="self-qr-frame"></div>
+        <div class="qr-token-container">
+          <span class="qr-token-label">Your Link Code:</span>
+          <span class="qr-token" id="self-qr-token">P-XXXX-XXXX</span>
+        </div>
+      </div>
+
+      <div class="qr-actions">
+        <button type="button" id="verify-child-btn" class="btn-primary">Now verify my child ›</button>
+        <button type="button" id="back-btn" class="btn-back">Back</button>
+      </div>
+    </div>
+
+    <!-- SCAN PANE: The second step for Parent -->
+    <div id="scan-pane" hidden>
+      <p class="eyebrow">Parent Mode</p>
+      <h1>Verify your child</h1>
+      <p class="scan-lede">
+        Now, scan your son or daughter's QR code to complete the mutual verification.
+      </p>
+
+      <section id="scan-section">
+        <div class="scan-stage">
+          <div class="scan-window" id="scan-window">
+            <div class="scan-overlay" aria-hidden="true">
+              <div class="scan-frame"></div>
+              <div class="scan-line"></div>
+            </div>
+            <div class="scan-empty" id="scan-empty">
+              <p>Camera not available on this device.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="scan-help">
+          No camera? Enter the code manually on the next page.
+        </p>
+
+        <div class="scan-success" id="scan-success" hidden>
+          <div class="scan-success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m5 12 4 4L19 6" />
+            </svg>
+          </div>
+          <h2>Child Verified</h2>
+          <p id="scan-success-msg">Mutual verification complete!</p>
+          <button type="button" id="final-continue-btn" class="btn-primary">Complete Link</button>
+        </div>
+      </section>
+
+      <div class="qr-actions">
+        <button type="button" id="back-to-show-btn" class="btn-back">‹ Show my code</button>
+        <a class="btn-link" href="../Parent Code link/Parent Code link.html">Enter code manually</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="Parent Link.js"></script>
+</body>
+</html>

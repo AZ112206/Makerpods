@@ -72,22 +72,68 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function updateParentSetupLinks(verified) {
+    const parentModeItem = document.getElementById("parent-mode-item");
+    const parentAddChildItem = document.getElementById("parent-add-child-item");
+    const verifyItem = document.getElementById("verify-id-item");
+    const linkedAccountsItem = document.getElementById("linked-accounts-item");
+
+    if (!parentModeItem || !parentAddChildItem) return;
+
+    // 1. Determine which setup item to show
+    const isParentLinked = localStorage.getItem("makerpodsParentModeLinked") === "true";
+    const activeItem = isParentLinked ? parentAddChildItem : parentModeItem;
+    const inactiveItem = isParentLinked ? parentModeItem : parentAddChildItem;
+
+    if (inactiveItem) inactiveItem.style.display = "none";
+    activeItem.style.display = "flex";
+
+    // 2. Position based on verification status
+    if (!verified) {
+      // Place after verify-id-item
+      if (verifyItem && linkedAccountsItem) {
+        // Move it to be after verifyItem
+        verifyItem.parentNode.insertBefore(activeItem, verifyItem.nextSibling);
+      }
+    } else {
+      // Place after linked-accounts-item
+      if (linkedAccountsItem) {
+        linkedAccountsItem.parentNode.insertBefore(activeItem, linkedAccountsItem.nextSibling);
+      }
+    }
+  }
+
+  async function checkVerificationStatus() {
+    try {
+      const response = await fetch('http://localhost:3000/api/stripe/verification-status');
+      const data = await response.json();
+      const verifyItem = document.getElementById("verify-id-item");
+      if (verifyItem) {
+        verifyItem.style.display = data.verified ? "none" : "flex";
+      }
+      await updateParentSetupLinks(data.verified);
+    } catch (err) {
+      console.error('Failed to check verification status:', err);
+      const verifyItem = document.getElementById("verify-id-item");
+      if (verifyItem) verifyItem.style.display = "flex";
+      await updateParentSetupLinks(false);
+    }
+  }
+
   applySavedTheme();
   applySavedSurfaceMode();
+  checkVerificationStatus();
 
-  // Hide the Parent Mode row once the adult has linked at least one son or daughter.
-  // The QR Scan page sets `makerpodsParentModeLinked` to "true" after a
-  // successful scan; this hides the entry from the Privacy & Security
-  // panel so the user isn't prompted to set it up again.
-  const parentModeItem = document.getElementById("parent-mode-item");
-  if (parentModeItem) {
-    try {
-      if (localStorage.getItem("makerpodsParentModeLinked") === "true") {
-        parentModeItem.style.display = "none";
+  // Update the profile role to "Parent" if the adult has linked a child.
+  try {
+    if (localStorage.getItem("makerpodsParentModeLinked") === "true") {
+      const roleSpan = document.querySelector(".sidebar-profile-role");
+      if (roleSpan) {
+        roleSpan.textContent = "Parent";
       }
-    } catch (e) {
-      /* localStorage unavailable — leave the row visible */
     }
+  } catch (e) {
+    /* localStorage unavailable */
   }
 
   navItems.forEach((item) => {
@@ -111,6 +157,36 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("makerpodsSurfaceMode", nextMode);
       });
     }
+
+  // ID Verification Redirect
+  const verifyItem = document.getElementById("verify-id-item");
+  if (verifyItem) {
+    verifyItem.addEventListener("click", async () => {
+      try {
+        const baseUrl = window.location.origin || 'http://localhost:3000';
+        const successPath = '/Front End/Website Version/Welcome Page/Settings/Settings Menus/Adult Settings Menu/Settings.html';
+        const successUrl = new URL(successPath, baseUrl).toString();
+
+        const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            successUrl: successUrl,
+            cancelUrl: window.location.href
+          })
+        });
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Error: Could not create verification session.');
+        }
+      } catch (err) {
+        console.error('Verification error:', err);
+        alert('Failed to connect to the backend server.');
+      }
+    });
+  }
 
     // Notification toggles
     const notificationToggles = {

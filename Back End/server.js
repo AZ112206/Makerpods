@@ -186,3 +186,19 @@ app.post('/api/stripe/create-verification-session', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// 12. Check the verification status for the user
+app.get('/api/stripe/verification-status', async (_req, res) => {
+    try {
+        const userId = 'makerpods_test_user';
+        const sessions = await stripe.identity.verificationSessions.list({
+            limit: 1,
+        });
+        const latestSession = sessions.data[0];
+        const isVerified = latestSession && latestSession.status === 'verified';
+        res.json({ verified: isVerified });
+    } catch (err) {
+        console.error('[Stripe] verification-status check failed:', err.message);
+        res.status(500).json({ ok: false, error: err.message });
+    }
+});

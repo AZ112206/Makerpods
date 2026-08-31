@@ -1,0 +1,7 @@
+@import url("../Student/Student QR scan/Student QR scan.css");
+
+/* Parent specific overrides if any */
+body[data-role="parent"] .btn-primary {
+  background-color: var(--color-mint);
+  color: var(--color-mint-foreground);
+}

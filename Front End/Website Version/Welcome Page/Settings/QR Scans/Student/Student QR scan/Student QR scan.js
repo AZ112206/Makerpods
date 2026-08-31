@@ -8,6 +8,15 @@
 (function () {
   "use strict";
 
+  function applyTheme() {
+    const savedTheme = localStorage.getItem("makerpodsTheme");
+    const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", preferredTheme);
+    const savedMode = localStorage.getItem("makerpodsSurfaceMode");
+    const preferredMode = savedMode === "solid" || savedMode === "transparent" ? savedMode : "transparent";
+    document.documentElement.setAttribute("data-surface-mode", preferredMode);
+  }
+
   const qs = (sel, root = document) => root.querySelector(sel);
 
   function randomBlock() {
@@ -63,13 +72,32 @@
         JSON.stringify({ id: "demo-parent", linkedAt: Date.now() })
       );
     } catch (e) { /* ignore */ }
-    navigateAway("../../../Dashboard/Student Dashboard/Student Dashboard.html");
+
+    // Instead of navigating away, we switch to the "Show my code" pane
+    const scanPane = document.getElementById("scan-pane");
+    const showPane = document.getElementById("show-pane");
+    const toggleBtn = document.getElementById("toggle-show-btn");
+
+    if (scanPane && showPane) {
+      showPane.removeAttribute("hidden");
+      scanPane.setAttribute("hidden", "");
+      if (toggleBtn) toggleBtn.textContent = "Hide my code";
+    }
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    applyTheme();
     const scanPane = qs("#scan-pane");
     const showPane = qs("#show-pane");
     const toggleBtn = qs("#toggle-show-btn");
+
+    // Auto-show code if redirected from manual entry
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("action") === "show_code") {
+      if (showPane) showPane.removeAttribute("hidden");
+      if (scanPane) scanPane.setAttribute("hidden", "");
+      if (toggleBtn) toggleBtn.textContent = "Hide my code";
+    }
 
     const manualForm = qs("#manual-form");
     const codeInput = qs("#manual-code");
@@ -81,6 +109,7 @@
     const tokenEl = qs("#self-qr-token");
 
     const backBtn = qs("#back-btn");
+    const finalContinueBtn = qs("#student-final-continue");
 
     // Pre-render the QR for the show-pane so the toggle reveals it instantly.
     const code = getOrCreateStudentCode();
@@ -106,9 +135,9 @@
       manualForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const value = codeInput.value.trim().toUpperCase();
-        if (value.length < 4) {
+        if (value.length < 8) {
           if (scanError) {
-            scanError.textContent = "Please enter at least 4 characters of the code.";
+            scanError.textContent = "Please enter a valid parent link code (e.g., P-XXXX-XXXX).";
             scanError.removeAttribute("hidden");
           }
           codeInput.focus();
@@ -128,7 +157,13 @@
 
     if (backBtn) {
       backBtn.addEventListener("click", () => {
-        navigateAway("../Settings Menus/Student Settings Menu/Settings.html");
+        navigateAway("../../Settings Menus/Student Settings Menu/Settings.html");
+      });
+    }
+
+    if (finalContinueBtn) {
+      finalContinueBtn.addEventListener("click", () => {
+        navigateAway("../../../Dashboard/Student Dashboard/Student Dashboard.html");
       });
     }
 

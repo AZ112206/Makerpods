@@ -823,6 +823,27 @@ body {
   transform: scale(0.98);
 }
 
+.settings-verify-btn {
+  padding: 6px 16px;
+  background-color: var(--primary-indigo);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.settings-verify-btn:hover {
+  background-color: var(--indigo-hover);
+}
+
+.settings-verify-btn:active {
+  transform: scale(0.98);
+}
+
 /* ==========================================
    Responsive
    ========================================== */

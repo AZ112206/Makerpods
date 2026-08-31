@@ -8,6 +8,15 @@
 (function () {
   "use strict";
 
+  function applyTheme() {
+    const savedTheme = localStorage.getItem("makerpodsTheme");
+    const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", preferredTheme);
+    const savedMode = localStorage.getItem("makerpodsSurfaceMode");
+    const preferredMode = savedMode === "solid" || savedMode === "transparent" ? savedMode : "transparent";
+    document.documentElement.setAttribute("data-surface-mode", preferredMode);
+  }
+
   function navigateAway(href) {
     const card = document.querySelector(".scan-card");
     if (card) {
@@ -19,11 +28,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    applyTheme();
     const form = document.getElementById("manual-form");
     const codeInput = document.getElementById("code-input");
     const nameInput = document.getElementById("parent-name");
     const errorEl = document.getElementById("scan-error");
-    const cancelBtn = document.getElementById("cancel-btn");
 
     if (form) {
       form.addEventListener("submit", (event) => {
@@ -48,13 +57,7 @@
             JSON.stringify({ id: code, name: name, linkedAt: Date.now() })
           );
         } catch (e) { /* ignore */ }
-        navigateAway("../../../Dashboard/Adult Dashboard/Adult Dashboard.html");
-      });
-    }
-
-    if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => {
-        navigateAway("../Settings Menus/Adult Settings Menu/Settings.html");
+        navigateAway("../Student QR scan/Student QR scan.html?action=show_code");
       });
     }
   });

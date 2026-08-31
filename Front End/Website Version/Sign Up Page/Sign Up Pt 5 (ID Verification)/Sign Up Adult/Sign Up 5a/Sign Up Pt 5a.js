@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-        successUrl: 'http://localhost:3000/Front%20End/Website%20Version/Sign%20Up%20Page/Sign%20Up%20Pt%206%20(Welcome)/Sign%20Up%20Pt%206.html',
+        successUrl: new URL('/Front End/Website Version/Sign Up Page/Sign Up Pt 6 (Welcome)/Sign Up Pt 6.html', window.location.origin || 'http://localhost:3000').toString(),
         cancelUrl: 'http://localhost:3000/Front%20End/Website%20Version/Sign%20Up%20Page/Sign%20Up%20Pt%205%20(ID%20Verification)/Sign%20Up%20Adult/Sign%20Up%205a/Sign%20Up%20Pt%205a.html'
       })
       });

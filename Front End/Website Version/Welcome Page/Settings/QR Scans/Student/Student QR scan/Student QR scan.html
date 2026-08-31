@@ -45,10 +45,10 @@
           id="manual-code"
           name="manual-code"
           class="scan-form-input"
-          maxlength="6"
+          maxlength="12"
           inputmode="latin"
-          pattern="[A-Za-z0-9]{6}"
-          placeholder="ABC123"
+          pattern="[A-Za-z0-9\-]+"
+          placeholder="P-XXXX-XXXX"
           spellcheck="false"
           autocapitalize="characters"
         />
@@ -92,6 +92,10 @@
       <div class="qr-status" role="status">
         <span class="qr-status-dot" aria-hidden="true"></span>
         <span class="qr-status-text">Waiting for scan…</span>
+      </div>
+
+      <div class="qr-success-footer" id="student-qr-success" hidden>
+        <button type="button" id="student-final-continue" class="btn-primary">Finish Setup</button>
       </div>
     </section>
 

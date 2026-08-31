@@ -72,8 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function checkVerificationStatus() {
+    try {
+      const response = await fetch('http://localhost:3000/api/stripe/verification-status');
+      const data = await response.json();
+      const verifyItem = document.getElementById("verify-id-item");
+      if (verifyItem) {
+        // Only show the verification item if the user is NOT verified
+        verifyItem.style.display = data.verified ? "none" : "flex";
+      }
+    } catch (err) {
+      console.error('Failed to check verification status:', err);
+      // Fallback: show the button if we can't verify status, so they can try to verify
+      const verifyItem = document.getElementById("verify-id-item");
+      if (verifyItem) verifyItem.style.display = "flex";
+    }
+  }
+
   applySavedTheme();
   applySavedSurfaceMode();
+  checkVerificationStatus();
 
   // Hide the Parent Mode row once the adult has linked at least one son or daughter.
   // The QR Scan page sets `makerpodsParentModeLinked` to "true" after a
@@ -111,6 +129,36 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("makerpodsSurfaceMode", nextMode);
       });
     }
+
+  // ID Verification Redirect
+  const verifyBtn = document.getElementById("verify-id-btn");
+  if (verifyBtn) {
+    verifyBtn.addEventListener("click", async () => {
+      try {
+        const baseUrl = window.location.origin || 'http://localhost:3000';
+        const successPath = '/Front End/Website Version/Welcome Page/Settings/Settings Menus/Parent Settings Menu/Settings.html';
+        const successUrl = new URL(successPath, baseUrl).toString();
+
+        const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            successUrl: successUrl,
+            cancelUrl: window.location.href
+          })
+        });
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Error: Could not create verification session.');
+        }
+      } catch (err) {
+        console.error('Verification error:', err);
+        alert('Failed to connect to the backend server.');
+      }
+    });
+  }
 
     // Notification toggles
     const notificationToggles = {

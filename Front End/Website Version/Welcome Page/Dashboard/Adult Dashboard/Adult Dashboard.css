@@ -671,3 +671,25 @@ body {
     height: 40px;
   }
 }
+
+.id-verification-card {
+  border: 2px solid #F59E0B; /* amber */
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.verify-id-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: var(--primary-indigo);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.verify-id-btn:hover {
+  background-color: var(--indigo-hover);
+}
