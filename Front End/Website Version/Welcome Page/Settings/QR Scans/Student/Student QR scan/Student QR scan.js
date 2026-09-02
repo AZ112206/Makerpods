@@ -73,16 +73,8 @@
       );
     } catch (e) { /* ignore */ }
 
-    // Instead of navigating away, we switch to the "Show my code" pane
-    const scanPane = document.getElementById("scan-pane");
-    const showPane = document.getElementById("show-pane");
-    const toggleBtn = document.getElementById("toggle-show-btn");
-
-    if (scanPane && showPane) {
-      showPane.removeAttribute("hidden");
-      scanPane.setAttribute("hidden", "");
-      if (toggleBtn) toggleBtn.textContent = "Hide my code";
-    }
+    // Redirect to the Linked subfolder of Student Settings Menu
+    navigateAway("../../Settings Menus/Student Settings Menu/Linked/Settings.html");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -157,7 +149,7 @@
 
     if (backBtn) {
       backBtn.addEventListener("click", () => {
-        navigateAway("../../Settings Menus/Student Settings Menu/Settings.html");
+        navigateAway("../../Settings Menus/Student Settings Menu/Verified/Settings.html");
       });
     }
 

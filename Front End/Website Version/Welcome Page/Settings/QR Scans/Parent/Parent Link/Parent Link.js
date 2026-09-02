@@ -72,7 +72,7 @@
         JSON.stringify({ id: "demo-student", linkedAt: Date.now() })
       );
     } catch (e) { /* ignore */ }
-    navigateAway("../../../Dashboard/Parent Dashboard/Parent Dashboard.html");
+    navigateAway("../../Settings Menus/Parent Settings Menu/Settings.html");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -111,7 +111,7 @@
     // Back to settings
     if (backBtn) {
       backBtn.addEventListener("click", () => {
-        navigateAway("../../Settings Menus/Adult Settings Menu/Settings.html");
+        navigateAway("../../../Settings Menus/Adult Settings Menu/Verified/Settings.html");
       });
     }
 

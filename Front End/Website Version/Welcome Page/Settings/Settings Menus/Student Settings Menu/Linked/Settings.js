@@ -72,70 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function updateParentSetupLinks(verified) {
-      const parentModeItem = document.getElementById("parent-mode-item");
-      const parentAddChildItem = document.getElementById("parent-add-child-item");
-      const verifyItem = document.getElementById("verify-id-item");
-      const linkedAccountsItem = document.getElementById("linked-accounts-item");
-
-      if (!parentModeItem || !parentAddChildItem) return;
-
-      if (!verified) {
-        // Not verified: hide parent setup, show only Verify Your Identity
-        parentModeItem.style.display = "none";
-        parentAddChildItem.style.display = "none";
-        if (verifyItem) verifyItem.style.display = "flex";
-        return;
-      }
-
-      // Verified: hide Verify Your Identity, show the appropriate parent setup row
-      if (verifyItem) verifyItem.style.display = "none";
-
-      const isParentLinked = localStorage.getItem("makerpodsParentModeLinked") === "true";
-      const activeItem = isParentLinked ? parentAddChildItem : parentModeItem;
-      const inactiveItem = isParentLinked ? parentModeItem : parentAddChildItem;
-
-      if (inactiveItem) inactiveItem.style.display = "none";
-      activeItem.style.display = "flex";
-
-      // Position after Linked Accounts
-      if (linkedAccountsItem) {
-        linkedAccountsItem.parentNode.insertBefore(activeItem, linkedAccountsItem.nextSibling);
-      }
-    }
-
-  async function checkVerificationStatus() {
-    try {
-      const response = await fetch('http://localhost:3000/api/stripe/verification-status');
-      const data = await response.json();
-      const verifyItem = document.getElementById("verify-id-item");
-      if (verifyItem) {
-        verifyItem.style.display = data.verified ? "none" : "flex";
-      }
-      await updateParentSetupLinks(data.verified);
-    } catch (err) {
-      console.error('Failed to check verification status:', err);
-      const verifyItem = document.getElementById("verify-id-item");
-      if (verifyItem) verifyItem.style.display = "flex";
-      await updateParentSetupLinks(false);
-    }
-  }
-
   applySavedTheme();
   applySavedSurfaceMode();
-  checkVerificationStatus();
-
-  // Update the profile role to "Parent" if the adult has linked a child.
-  try {
-    if (localStorage.getItem("makerpodsParentModeLinked") === "true") {
-      const roleSpan = document.querySelector(".sidebar-profile-role");
-      if (roleSpan) {
-        roleSpan.textContent = "Parent";
-      }
-    }
-  } catch (e) {
-    /* localStorage unavailable */
-  }
 
   navItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -158,75 +96,45 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("makerpodsSurfaceMode", nextMode);
       });
     }
-
-  // ID Verification Redirect
-  const verifyItem = document.getElementById("verify-id-item");
-  if (verifyItem) {
-    verifyItem.addEventListener("click", async () => {
-      try {
-                const successUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Adult%20Settings%20Menu/Settings.html';
-        const cancelUrl = 'http://localhost:3000/Front%20End/Website%20Version/Welcome%20Page/Settings/Settings%20Menus/Adult%20Settings%20Menu/Settings.html';
-
-        const response = await fetch('http://localhost:3000/api/stripe/create-verification-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            successUrl: successUrl,
-            cancelUrl: cancelUrl
-          })
-        });
-        const data = await response.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert('Error: Could not create verification session.');
-        }
-      } catch (err) {
-        console.error('Verification error:', err);
-        alert('Failed to connect to the backend server.');
-      }
-    });
-  }
-
     // Notification toggles
     const notificationToggles = {
       push: document.getElementById("push-notifications-toggle"),
       email: document.getElementById("email-notifications-toggle"),
       message: document.getElementById("message-notifications-toggle"),
       follower: document.getElementById("follower-notifications-toggle")
-    };
+  };
 
     function loadNotificationPrefs() {
       const saved = localStorage.getItem("makerpodsNotificationPrefs");
-      if (!saved) return;
-      try {
+    if (!saved) return;
+    try {
         const prefs = JSON.parse(saved);
         Object.keys(notificationToggles).forEach((key) => {
           if (notificationToggles[key] && typeof prefs[key] === "boolean") {
             notificationToggles[key].checked = prefs[key];
-          }
-        });
-      } catch (e) {
+        }
+      });
+    } catch (e) {
         console.warn("Failed to parse saved notification prefs", e);
-      }
     }
+  }
 
     function saveNotificationPrefs() {
       const prefs = {};
       Object.keys(notificationToggles).forEach((key) => {
         if (notificationToggles[key]) {
           prefs[key] = notificationToggles[key].checked;
-        }
-      });
+      }
+    });
       localStorage.setItem("makerpodsNotificationPrefs", JSON.stringify(prefs));
-    }
+  }
 
     loadNotificationPrefs();
 
     Object.keys(notificationToggles).forEach((key) => {
       if (notificationToggles[key]) {
         notificationToggles[key].addEventListener("change", saveNotificationPrefs);
-      }
+  }
     });
 
     // Privacy toggle
@@ -235,10 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const savedPrivate = localStorage.getItem("makerpodsPrivateAccount");
       if (savedPrivate === "true") {
         privateAccountToggle.checked = true;
-      }
+  }
       privateAccountToggle.addEventListener("change", () => {
         localStorage.setItem("makerpodsPrivateAccount", privateAccountToggle.checked ? "true" : "false");
-      });
+});
     }
 
   // Connections panel: social media URL inputs

@@ -64,7 +64,7 @@
 
     if (cancelBtn) {
       cancelBtn.addEventListener("click", () => {
-        navigateAway("../../Settings Menus/Adult Settings Menu/Settings.html");
+        navigateAway("../../../Settings Menus/Adult Settings Menu/Verified/Settings.html");
       });
     }
   });
