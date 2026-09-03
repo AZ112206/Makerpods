@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Size Settings</title>
+    <link rel="stylesheet" href="Font Size.css">
+</head>
+<body>
+
+    <div class="settings-container">
+        <div class="setting-item" id="fontSizeToggle">
+            <span class="setting-label">Font Size</span>
+            <span class="current-value" id="currentFontSize">Medium (100%)</span>
+        </div>
+        <div class="options-container" id="optionsContainer">
+            <div class="option" data-size="80%" data-label="Small">
+                <span>Small</span>
+                <span class="option-value">80%</span>
+            </div>
+            <div class="option" data-size="90%" data-label="Medium-Small">
+                <span>Medium-Small</span>
+                <span class="option-value">90%</span>
+            </div>
+            <div class="option selected" data-size="100%" data-label="Medium">
+                <span>Medium</span>
+                <span class="option-value">100%</span>
+            </div>
+            <div class="option" data-size="110%" data-label="Medium-Large">
+                <span>Medium-Large</span>
+                <span class="option-value">110%</span>
+            </div>
+            <div class="option" data-size="120%" data-label="Large">
+                <span>Large</span>
+                <span class="option-value">120%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="Font Size.js"></script>
+</body>
+</html>

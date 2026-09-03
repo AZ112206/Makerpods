@@ -132,34 +132,49 @@
               <span class="settings-chevron">›</span>
             </div>
           </div>
-          <div class="settings-item">
-            <div class="settings-item-left">
-              <div class="settings-item-icon indigo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 4v16"/></svg>
+          <div class="settings-item-container" id="layout-density-container">
+            <div class="settings-item" id="layout-density-trigger">
+              <div class="settings-item-left">
+                <div class="settings-item-icon indigo">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 4v16"/></svg>
+                </div>
+                <div class="settings-item-text">
+                  <span class="settings-item-label">Layout Density</span>
+                  <span class="settings-item-desc">Compact or comfortable spacing</span>
+                </div>
               </div>
-              <div class="settings-item-text">
-                <span class="settings-item-label">Layout Density</span>
-                <span class="settings-item-desc">Compact or comfortable spacing</span>
+              <div class="settings-item-right">
+                <span class="settings-item-value" id="current-layout-density">Comfortable</span>
+                <span class="settings-chevron">›</span>
               </div>
             </div>
-            <div class="settings-item-right">
-              <span class="settings-item-value">Comfortable</span>
-              <span class="settings-chevron">›</span>
+            <div class="settings-dropdown" id="layout-density-dropdown">
+                <div class="dropdown-option" data-density="compact" data-label="Compact">Compact</div>
+                <div class="dropdown-option" data-density="comfortable" data-label="Comfortable">Comfortable</div>
             </div>
           </div>
-          <div class="settings-item">
-            <div class="settings-item-left">
-              <div class="settings-item-icon indigo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div class="settings-item-container" id="font-size-container">
+            <div class="settings-item" id="font-size-trigger">
+              <div class="settings-item-left">
+                <div class="settings-item-icon indigo">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <div class="settings-item-text">
+                  <span class="settings-item-label">Font Size</span>
+                  <span class="settings-item-desc">Adjust text size across the app</span>
+                </div>
               </div>
-              <div class="settings-item-text">
-                <span class="settings-item-label">Font Size</span>
-                <span class="settings-item-desc">Adjust text size across the app</span>
+              <div class="settings-item-right">
+                <span class="settings-item-value" id="current-font-size">Medium (100%)</span>
+                <span class="settings-chevron">›</span>
               </div>
             </div>
-            <div class="settings-item-right">
-              <span class="settings-item-value">Medium</span>
-              <span class="settings-chevron">›</span>
+            <div class="settings-dropdown" id="font-size-dropdown">
+                <div class="dropdown-option" data-size="80%" data-label="Small">Small (80%)</div>
+                <div class="dropdown-option" data-size="90%" data-label="Medium-Small">Medium-Small (90%)</div>
+                <div class="dropdown-option" data-size="100%" data-label="Medium">Medium (100%)</div>
+                <div class="dropdown-option" data-size="110%" data-label="Medium-Large">Medium-Large (110%)</div>
+                <div class="dropdown-option" data-size="120%" data-label="Large">Large (120%)</div>
             </div>
           </div>
         </div>

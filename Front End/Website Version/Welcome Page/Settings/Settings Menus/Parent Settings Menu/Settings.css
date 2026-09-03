@@ -18,6 +18,10 @@
   --mesh-1: rgba(99, 102, 241, 0.35);
   --mesh-2: rgba(16, 185, 129, 0.25);
   --mesh-3: rgba(79, 70, 229, 0.2);
+
+  /* Global UI Controls */
+  --global-font-size: 100%;
+  --spacing-unit: 8px;
 }
 
 [data-theme= dark] {
@@ -114,6 +118,7 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--global-font-size);
 
   background-color: var(--bg-canvas);
   background-image:
@@ -123,6 +128,14 @@ body {
   background-attachment: fixed;
   transition: background-color 0.3s ease;
   display: block;
+}
+
+/* Layout Density Overrides */
+.density-compact {
+  --spacing-unit: 4px;
+}
+.density-comfortable {
+  --spacing-unit: 8px;
 }
 
 /* ==========================================
@@ -846,6 +859,75 @@ body {
 /* ==========================================
    Responsive
    ========================================== */
+
+/* Font Size Dropdown Container */
+.settings-item-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.settings-item-container:hover {
+    background-color: rgba(99, 102, 241, 0.06);
+}
+
+[data-theme=dark] .settings-item-container:hover {
+    background-color: rgba(129, 140, 248, 0.08);
+}
+
+/* Override default settings-item styles when nested in container */
+.settings-item-container .settings-item {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.settings-item-container .settings-item:hover {
+    background: none !important;
+}
+
+/* Dropdown Area */
+.settings-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: var(--card-bg);
+}
+
+.settings-item-container.expanded .settings-dropdown {
+    max-height: 300px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Individual Options */
+.dropdown-option {
+    padding: 12px 22px 12px 66px;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background-color: rgba(99, 102, 241, 0.06);
+    color: var(--primary-indigo);
+}
+
+[data-theme=dark] .dropdown-option:hover {
+    background-color: rgba(129, 140, 248, 0.08);
+}
 
 @media (max-width: 860px) {
   .settings-body {

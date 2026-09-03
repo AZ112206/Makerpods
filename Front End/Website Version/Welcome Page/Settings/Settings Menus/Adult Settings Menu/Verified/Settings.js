@@ -114,6 +114,108 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // --- Layout Density Logic ---
+    const layoutDensityContainer = document.getElementById("layout-density-container");
+    const layoutDensityTrigger = document.getElementById("layout-density-trigger");
+    const currentLayoutDensityDisplay = document.getElementById("current-layout-density");
+    const layoutDensityOptions = document.querySelectorAll("#layout-density-dropdown .dropdown-option");
+
+    function applyLayoutDensity(density, label) {
+        document.body.classList.toggle("density-compact", density === "compact");
+        document.body.classList.toggle("density-comfortable", density === "comfortable");
+        if (currentLayoutDensityDisplay) {
+            currentLayoutDensityDisplay.textContent = label;
+        }
+        localStorage.setItem("makerpodsLayoutDensity", density);
+        localStorage.setItem("makerpodsLayoutDensityLabel", label);
+    }
+
+    function loadSavedLayoutDensity() {
+        const savedDensity = localStorage.getItem("makerpodsLayoutDensity");
+        const savedLabel = localStorage.getItem("makerpodsLayoutDensityLabel");
+        if (savedDensity && savedLabel) {
+            applyLayoutDensity(savedDensity, savedLabel);
+        } else {
+            applyLayoutDensity("comfortable", "Comfortable");
+        }
+    }
+
+    if (layoutDensityTrigger) {
+        layoutDensityTrigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (layoutDensityContainer) {
+                layoutDensityContainer.classList.toggle("expanded");
+            }
+        });
+    }
+
+    layoutDensityOptions.forEach(option => {
+        option.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const density = option.dataset.density;
+            const label = option.dataset.label;
+            applyLayoutDensity(density, label);
+            if (layoutDensityContainer) {
+                layoutDensityContainer.classList.remove("expanded");
+            }
+        });
+    });
+
+    // --- Font Size Logic ---
+    const fontSizeContainer = document.getElementById("font-size-container");
+    const fontSizeTrigger = document.getElementById("font-size-trigger");
+    const currentFontSizeDisplay = document.getElementById("current-font-size");
+    const fontSizeOptions = document.querySelectorAll("#font-size-dropdown .dropdown-option");
+
+    function applyFontSize(size, label) {
+        document.body.style.fontSize = size;
+        if (currentFontSizeDisplay) {
+            currentFontSizeDisplay.textContent = label;
+        }
+        localStorage.setItem("makerpodsFontSize", size);
+        localStorage.setItem("makerpodsFontSizeLabel", label);
+    }
+
+    function loadSavedFontSize() {
+        const savedSize = localStorage.getItem("makerpodsFontSize");
+        const savedLabel = localStorage.getItem("makerpodsFontSizeLabel");
+        if (savedSize && savedLabel) {
+            applyFontSize(savedSize, savedLabel);
+        } else {
+            applyFontSize("100%", "Medium (100%)");
+        }
+    }
+
+    if (fontSizeTrigger) {
+        fontSizeTrigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (fontSizeContainer) {
+                fontSizeContainer.classList.toggle("expanded");
+            }
+        });
+    }
+
+    fontSizeOptions.forEach(option => {
+        option.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const size = option.dataset.size;
+            const label = option.dataset.label;
+            applyFontSize(size, label);
+            if (fontSizeContainer) {
+                fontSizeContainer.classList.remove("expanded");
+            }
+        });
+    });
+
+    document.addEventListener("click", () => {
+        if (fontSizeContainer) {
+            fontSizeContainer.classList.remove("expanded");
+        }
+    });
+
+    loadSavedLayoutDensity();
+    loadSavedFontSize();
+
     // Notification toggles
     const notificationToggles = {
       push: document.getElementById("push-notifications-toggle"),

@@ -919,3 +919,72 @@ body {
     border-radius: 10px;
   }
 }
+
+/* Font Size Dropdown Container */
+.settings-item-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.settings-item-container:hover {
+    background-color: rgba(99, 102, 241, 0.06);
+}
+
+[data-theme=dark] .settings-item-container:hover {
+    background-color: rgba(129, 140, 248, 0.08);
+}
+
+/* Override default settings-item styles when nested in container */
+.settings-item-container .settings-item {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.settings-item-container .settings-item:hover {
+    background: none !important;
+}
+
+/* Dropdown Area */
+.settings-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: var(--card-bg);
+}
+
+.settings-item-container.expanded .settings-dropdown {
+    max-height: 300px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Individual Options */
+.dropdown-option {
+    padding: 12px 22px 12px 66px;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background-color: rgba(99, 102, 241, 0.06);
+    color: var(--primary-indigo);
+}
+
+[data-theme=dark] .dropdown-option:hover {
+    background-color: rgba(129, 140, 248, 0.08);
+}
