@@ -10,29 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Home",
       desc: "Welcome back to your workshop. Ready to build something today?"
     },
-    overview: {
-      title: "Overview",
-      desc: "Here's how your projects and skills are growing."
-    },
-    projects: {
-      title: "Projects",
-      desc: "Open a new build or finish one in progress."
-    },
     messages: {
       title: "Messages",
       desc: "Chat with friends and mentors."
-    },
-    community: {
-      title: "Community",
-      desc: "See what other kids are making and sharing."
-    },
-    analytics: {
-      title: "Progress",
-      desc: "Track your XP, streaks, and project wins."
-    },
-    resources: {
-      title: "Resources",
-      desc: "Tutorials, starter templates, and learning tracks."
     }
   };
 

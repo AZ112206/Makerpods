@@ -693,3 +693,116 @@ body {
 .verify-id-btn:hover {
   background-color: var(--indigo-hover);
 }
+
+/* ==========================================
+   Spaces Bento Grid (Bento UI)
+   ========================================== */
+
+.spaces-bento-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+}
+
+.bento-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.spaces-bento-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(4, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+/* Add Space Column (Far Left) */
+.bento-add-space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.add-space-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--primary-indigo);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.add-space-circle:hover {
+  transform: scale(1.05);
+  background-color: var(--indigo-hover);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.4);
+}
+
+.add-space-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Bento Squares (The 4 on the right) */
+.bento-square {
+  aspect-ratio: 1 / 1;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-square:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-indigo);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
+}
+
+.bento-square-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.bento-square-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+}
+
+.bento-square-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Custom Colors for Bento Squares */
+.sq-1 { border-bottom: 4px solid var(--primary-indigo); }
+.sq-2 { border-bottom: 4px solid var(--mint-accent); }
+.sq-3 { border-bottom: 4px solid #0EA5E9; }
+.sq-4 { border-bottom: 4px solid #F59E0B; }
+

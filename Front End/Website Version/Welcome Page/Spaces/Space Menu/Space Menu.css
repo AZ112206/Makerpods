@@ -1,0 +1,92 @@
+/* Specialized overrides for the Spaces page */
+
+/* Dedicated Spaces Search Bar */
+.spaces-search-container {
+  margin-bottom: 32px;
+}
+
+.spaces-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(var(--card-bg-rgb), 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 0 14px;
+  width: 100%;
+  max-width: 600px;
+  height: 44px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spaces-search-wrapper:focus-within {
+  border-color: var(--primary-indigo);
+  background: rgba(var(--card-bg-rgb), 0.7);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.spaces-search-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.spaces-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.spaces-search-filter-btn {
+  background: var(--primary-indigo);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 6px;
+}
+
+.spaces-search-filter-btn:hover {
+  background-color: var(--indigo-hover);
+}
+
+/* Sections */
+.spaces-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+}
+
+.joined-empty-state {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  background-color: var(--card-bg);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 24px;
+}
+
+@media (max-width: 860px) {
+  .spaces-search-wrapper {
+    height: 40px;
+  }
+}

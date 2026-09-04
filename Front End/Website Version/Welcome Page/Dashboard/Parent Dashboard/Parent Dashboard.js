@@ -10,29 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Home",
       desc: "Welcome to Makerpods. Your home for building and sharing."
     },
-    overview: {
-      title: "Overview",
-      desc: "Welcome back. Here's your snapshot."
-    },
-    projects: {
-      title: "Projects",
-      desc: "Manage and continue your projects."
-    },
     messages: {
       title: "Messages",
       desc: "Conversations and updates from your network."
-    },
-    community: {
-      title: "Community",
-      desc: "See what others are making and sharing."
-    },
-    analytics: {
-      title: "Analytics",
-      desc: "Track how your work is performing."
-    },
-    resources: {
-      title: "Resources",
-      desc: "Guides, templates, and learning material."
     }
   };
 

@@ -670,6 +670,267 @@ body {
     margin-top: 0;
     height: 40px;
   }
+
+/* ==========================================
+   Spaces Bento Grid (Bento UI)
+   ========================================== */
+
+.spaces-bento-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+}
+
+.bento-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.spaces-bento-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(4, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+/* Add Space Column (Far Left) */
+.bento-add-space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.add-space-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--primary-indigo);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.add-space-circle:hover {
+  transform: scale(1.05);
+  background-color: var(--indigo-hover);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.4);
+}
+
+.add-space-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Bento Squares (The 4 on the right) */
+.bento-square {
+  aspect-ratio: 1 / 1;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-square:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-indigo);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
+}
+
+.bento-square-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.bento-square-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+}
+
+.bento-square-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Custom Colors for Bento Squares */
+.sq-1 { border-bottom: 4px solid var(--primary-indigo); }
+.sq-2 { border-bottom: 4px solid var(--mint-accent); }
+.sq-3 { border-bottom: 4px solid #0EA5E9; }
+.sq-4 { border-bottom: 4px solid #F59E0B; }
+
+
+/* ==========================================
+   Spaces Feed (Reddit-like UI)
+   ========================================== */
+
+.spaces-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 800px;
+}
+
+.space-post {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.space-post:hover {
+  border-color: var(--primary-indigo);
+}
+
+.space-post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.space-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-indigo), var(--mint-accent));
+  flex-shrink: 0;
+}
+
+.space-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.space-username {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.space-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.space-tag {
+  color: var(--primary-indigo);
+  font-weight: 600;
+}
+
+.space-post-body {
+  margin-bottom: 16px;
+}
+
+.space-post-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+.space-post-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.space-post-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.voting-section {
+  display: flex;
+  align-items: center;
+  background: rgba(var(--card-bg-rgb), 0.5);
+  border-radius: 9999px;
+  padding: 4px;
+  gap: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.vote-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.vote-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-indigo);
+}
+
+.vote-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  min-width: 30px;
+  text-align: center;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(var(--card-bg-rgb), 0.5);
+  color: var(--text-main);
+}
+
+.action-btn svg {
+  flex-shrink: 0;
+}
+
 }
 
 .id-verification-card {
