@@ -2,7 +2,10 @@
 
 /* Dedicated Spaces Search Bar */
 .spaces-search-container {
-  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .spaces-search-wrapper {
@@ -14,7 +17,6 @@
   border-radius: 14px;
   padding: 12px 16px;
   width: 100%;
-  max-width: 680px;
   min-height: 62px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -61,27 +63,6 @@
 }
 
 /* Spaces content area */
-.dashboard-sidebar {
-  width: 330px;
-  padding: 28px 26px;
-}
-
-.sidebar-profile-avatar {
-  width: 88px;
-  height: 88px;
-}
-
-.sidebar-profile-name {
-  font-size: 15px;
-}
-
-.sidebar-profile-role {
-  display: block;
-  margin-top: 6px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary-indigo);
-}
 
 .dashboard-panel {
   padding: 40px 64px 56px;
@@ -121,8 +102,22 @@
 
 .bento-label-column {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
+}
+
+.label-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spaces-section-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 140px;
 }
 
 .bento-add-space {
@@ -166,6 +161,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  justify-content: center;
+  align-items: center;
 }
 
 .joined-spaces-scroll {
@@ -180,14 +177,32 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 128px;
+  min-height: 200px;
   box-sizing: border-box;
-  padding: 16px;
-  background: rgba(var(--card-bg-rgb), 0.3);
-  border: 1px dashed var(--border-subtle);
-  border-radius: 16px;
+  padding: 32px;
+  background: rgba(var(--card-bg-rgb), 0.2);
+  border: 2px dashed var(--border-subtle);
+  border-radius: 24px;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.search-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 300px;
+  margin-top: 16px;
+  box-sizing: border-box;
+  padding: 32px;
+  background: rgba(var(--card-bg-rgb), 0.2);
+  border: 2px dashed var(--border-subtle);
+  border-radius: 24px;
+  color: var(--text-muted);
+  font-size: 16px;
   text-align: center;
 }
 
@@ -259,21 +274,6 @@
 }
 
 @media (max-width: 860px) {
-  .dashboard-sidebar {
-    width: 100%;
-    padding: 16px;
-  }
-
-  .sidebar-profile-avatar {
-    width: 56px;
-    height: 56px;
-  }
-
-  .sidebar-profile-role {
-    font-size: 14px;
-    margin-top: 2px;
-  }
-
   .dashboard-panel {
     padding: 24px 20px;
   }
@@ -296,3 +296,5 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+

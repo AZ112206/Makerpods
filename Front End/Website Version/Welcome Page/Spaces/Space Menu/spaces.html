@@ -6,14 +6,17 @@
   <title>Makerpods - Spaces</title>
   <link rel="stylesheet" href="../../Dashboard/Adult Dashboard/Adult Dashboard.css" />
   <link rel="stylesheet" href="spaces.css" />
-  <link rel="stylesheet" href="../../assets/css/site-logo.css" />
+  <link rel="stylesheet" href="../New Space/New Space.css" />
+  <link rel="stylesheet" href="../Space Icons/icons.css" />
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
+  <link rel="stylesheet" href="../../../assets/css/sidebar.css" />
 </head>
 <body data-theme="dark">
 
   <!-- Top strip -->
   <header class="top-strip" aria-label="Top navigation bar">
     <a href="../../Dashboard/Adult Dashboard/Adult Dashboard.html" class="top-strip-logo" aria-label="Back to Dashboard">
-      <img src="../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
+      <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
     </a>
     <form class="top-strip-search" role="search" aria-label="Search Makerpods">
       <span class="top-strip-search-icon" aria-hidden="true">
@@ -81,19 +84,6 @@
         <div class="dashboard-panel-header">
           <h2 id="dashboard-panel-title">Spaces</h2>
           <p id="dashboard-panel-desc">Discover, create, and collaborate in dedicated Makerpods spaces.</p>
-        </div>
-
-        <!-- Dedicated Spaces Search Bar -->
-        <div class="spaces-search-container">
-          <div class="spaces-search-wrapper">
-            <span class="spaces-search-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </span>
-            <input type="text" class="spaces-search-input" placeholder="Find a space (e.g. Robotics, UI Design)..." aria-label="Search Spaces" />
-            <button class="spaces-search-filter-btn" aria-label="Filter Spaces">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            </button>
-          </div>
         </div>
 
         <div class="dashboard-panel-body">
@@ -256,10 +246,144 @@
               </div>
             </div>
           </div>
+
+          <!-- Search Spaces Section -->
+          <div class="spaces-section">
+            <div class="spaces-bento-grid">
+              <!-- Left Column: Description -->
+              <div class="bento-label-column">
+                <div class="label-content">
+                  <h3 class="spaces-section-title">Explore Spaces</h3>
+                  <p class="spaces-section-desc">Search for specific interests, hobbies, or technologies to find your community.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Search and Results -->
+              <div class="bento-squares-container">
+                <div class="spaces-search-wrapper">
+                  <span class="spaces-search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </span>
+                  <input type="text" class="spaces-search-input" placeholder="Find a space (e.g. Robotics, UI Design)..." aria-label="Search Spaces" />
+                  <button class="spaces-search-filter-btn" aria-label="Filter Spaces">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                  </button>
+                </div>
+                <div class="search-empty-state">
+                  <p>Search results will appear here.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </section>
     </div>
   </main>
+
+  <!-- New Space Modal Overlay -->
+  <div id="new-space-overlay" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Create New Space</h2>
+        <button id="close-modal" class="close-button" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="create-space-form">
+          <div class="form-group">
+            <label for="space-name">Space Name</label>
+            <input type="text" id="space-name" name="space-name" placeholder="Enter space name..." required />
+          </div>
+
+          <div class="form-group">
+            <label>Select Icon</label>
+            <div class="icon-grid">
+              <button type="button" class="icon-option active" data-icon="robot" aria-label="Robot icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="code" aria-label="Code icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="design" aria-label="Design icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 12l-7-7-3 3 7 7 3-3z"/><path d="M6 12l7-7 3 3-7 7-3-3z"/><path d="M12 12l-7-7-3 3 7 7 3-3z"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="science" aria-label="Science icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.8 12.8 0 0 1 3 7a14 14 0 0 1 5 4c1.1 0 2.1-.3 3-1"/><path d="m16 15 3-3a22 22 0 0 0-2-3.95A12.8 12.8 0 0 0 21 7a14 14 0 0 0-5 4c-1.1 0-2.1.3-3 1"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="home" aria-label="Home icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="music" aria-label="Music icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </button>
+              <button type="button" class="icon-option" data-icon="book" aria-label="Book icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </button>
+              <button type="button" class="icon-option more-icons" title="More icons" aria-label="More icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="space-icons-slot"></div>
+
+          <div class="form-group">
+            <label>Space Color</label>
+            <div class="color-grid">
+              <div class="color-option active" data-color="#6366f1" style="background-color: #6366f1;"></div>
+              <div class="color-option" data-color="#10b981" style="background-color: #10b981;"></div>
+              <div class="color-option" data-color="#0ea5e9" style="background-color: #0ea5e9;"></div>
+              <div class="color-option" data-color="#f59e0b" style="background-color: #f59e0b;"></div>
+              <div class="color-option" data-color="#ec4899" style="background-color: #ec4899;"></div>
+              <div class="color-option" data-color="#8b5cf6" style="background-color: #8b5cf6;"></div>
+              <div class="color-option" data-color="#ef4444" style="background-color: #ef4444;"></div>
+              <label class="color-option custom-color-option" data-color="#a855f7" title="Choose a custom color" aria-label="Choose a custom color">
+                <input type="color" value="#a855f7" aria-label="Choose a custom space color" />
+                <span class="color-picker-swatch"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Privacy</label>
+            <div class="privacy-toggle">
+              <label class="toggle-option">
+                <input type="radio" name="privacy" value="public" checked />
+                <span class="toggle-label">Public</span>
+              </label>
+              <label class="toggle-option">
+                <input type="radio" name="privacy" value="private" />
+                <span class="toggle-label">Private</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="private-options" class="private-options-container hidden">
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="ask-for-code" />
+                <span>Ask for a code to join</span>
+              </label>
+            </div>
+
+            <div id="code-input-group" class="form-group hidden">
+              <label for="space-code">Access Code</label>
+              <input type="text" id="space-code" name="space-code" maxlength="6" placeholder="6-digit code (e.g. A1B2C3)" />
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="create-btn">Create Space</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="../Space Icons/icons.js"></script>
+  <script src="../Space Icons/icons-logic.js"></script>
   <script src="spaces.js"></script>
+  <script src="../New Space/New Space.js"></script>
 </body>
 </html>

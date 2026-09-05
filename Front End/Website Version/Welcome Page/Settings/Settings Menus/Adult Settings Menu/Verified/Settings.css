@@ -213,9 +213,9 @@ body {
 }
 
 .settings-sidebar {
-  width: 290px;
+  width: 260px;
   flex-shrink: 0;
-  padding: 28px 22px;
+  padding: 24px 20px;
   border-right: 1px solid var(--border-subtle);
   background: rgba(var(--card-bg-rgb), 0.55);
   backdrop-filter: blur(20px);
@@ -238,8 +238,8 @@ body {
 }
 
 .sidebar-profile-avatar {
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366F1 0%, #10B981 100%);
   display: flex;
@@ -258,22 +258,17 @@ body {
 }
 
 .sidebar-profile-name {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .sidebar-profile-role {
   display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin: 6px auto 0;
-  padding: 4px 14px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary-indigo);
-  text-align: center;
-  letter-spacing: -0.3px;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .settings-nav {
