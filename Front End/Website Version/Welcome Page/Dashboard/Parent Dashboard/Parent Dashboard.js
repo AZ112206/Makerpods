@@ -56,9 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function handleHash() {
+    const hash = window.location.hash.substring(1);
+    if (hash && PANEL_META[hash]) {
+      switchPanel(hash);
+    }
+  }
+
+  window.addEventListener("hashchange", handleHash);
+
   navItems.forEach((item) => {
     item.addEventListener("click", () => {
       switchPanel(item.dataset.panel);
     });
   });
+
+  handleHash();
 });
