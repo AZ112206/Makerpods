@@ -94,9 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form Submission
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('Space creation logic will be implemented here!');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+
+      const spaceNameInput = document.getElementById('space-name');
+      if (spaceNameInput) {
+        localStorage.setItem('currentSpaceName', spaceNameInput.value);
+      }
+
+      // Redirect to the Space Dashboard after successful creation
+      window.location.href = '../Space Dashboard/Dashboard/space-dashboard.html';
     });
   }
 });

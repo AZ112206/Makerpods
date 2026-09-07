@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makerpods - Stick Note Detail</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../../../../assets/css/sidebar.css">
+  <link rel="stylesheet" href="../../../../../assets/css/site-logo.css">
+</head>
+<body data-theme="dark">
+
+  <header class="top-strip">
+    <a href="../../../Space Menu/spaces.html" class="top-strip-logo" aria-label="Back to Spaces">
+      <img src="../../../../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
+    </a>
+    <div class="top-strip-actions">
+      <a href="../Stick Notes Menu/index.html" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Back to Notes</span>
+      </a>
+      <div class="detail-actions">
+        <button id="edit-btn" class="action-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span id="edit-btn-text">Edit Note</span>
+        </button>
+        <button id="delete-btn" class="action-btn delete">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Delete Note</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <div class="dashboard-body">
+      <section class="detail-panel">
+        <div class="detail-container">
+          <div class="stick-note-detail" id="note-canvas">
+            <textarea id="note-text" spellcheck="false" readonly></textarea>
+            <div class="note-color-picker" id="color-picker" style="display: none;">
+              <div class="color-option" data-color="mint" style="background-color: #BBF7D0;"></div>
+              <div class="color-option" data-color="sky" style="background-color: #BAE6FD;"></div>
+              <div class="color-option" data-color="indigo" style="background-color: #C7D2FE;"></div>
+              <div class="color-option" data-color="violet" style="background-color: #DDD6FE;"></div>
+              <div class="color-option" data-color="rose" style="background-color: #FECDD3;"></div>
+              <div class="color-option" data-color="yellow" style="background-color: #FFFF88;"></div>
+              <div class="color-option" data-color="pink" style="background-color: #FFB6C1;"></div>
+              <div class="color-option" data-color="green" style="background-color: #BFFBBE;"></div>
+              <div class="color-option" data-color="blue" style="background-color: #BBEBFF;"></div>
+              <div class="color-option" data-color="orange" style="background-color: #FFCC88;"></div>
+              <label class="color-option custom-color-option" title="Custom Color">
+                <input type="color" id="custom-color-input" value="#FFFF00">
+                <span class="color-picker-swatch"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

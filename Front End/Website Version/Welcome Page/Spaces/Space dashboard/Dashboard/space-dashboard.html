@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makerpods - Space Dashboard</title>
+  <link rel="stylesheet" href="space-dashboard.css" />
+  <link rel="stylesheet" href="../../../assets/css/sidebar.css" />
+  <link rel="stylesheet" href="../../../assets/css/site-logo.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- Top strip -->
+  <header class="top-strip" aria-label="Top navigation bar">
+    <a href="../../Space Menu/spaces.html" class="top-strip-logo" aria-label="Back to Spaces">
+      <img src="../../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
+    </a>
+    <form class="top-strip-search" role="search" aria-label="Search Space">
+      <span class="top-strip-search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="search" class="top-strip-search-input" id="space-search" placeholder="Search in this space..." aria-label="Search Space" />
+    </form>
+  </header>
+
+  <main class="dashboard">
+    <div class="dashboard-body">
+
+      <!-- Left Sidebar -->
+      <aside class="dashboard-sidebar">
+        <div class="sidebar-profile" aria-label="User profile">
+          <div class="sidebar-profile-avatar" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="sidebar-profile-text">
+            <span class="sidebar-profile-name">Alex Rivera</span>
+          </div>
+        </div>
+
+        <nav class="dashboard-nav" aria-label="Space navigation">
+          <a class="dashboard-nav-item active" href="space-dashboard.html" aria-label="Home">
+            <span class="dashboard-nav-icon rose">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>
+            </span>
+            <span class="dashboard-nav-label">Home</span>
+          </a>
+
+          <button class="dashboard-nav-item" aria-label="Messages">
+            <span class="dashboard-nav-icon sky">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <span class="dashboard-nav-label">Messages</span>
+          </button>
+
+          <a class="dashboard-nav-item" href="../Stick Notes/Add Stick Note Board/Your Note Boards/index.html" aria-label="Stick Notes">
+            <span class="dashboard-nav-icon mint">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><path d="M15 3v4"/><path d="M9 3v4"/></svg>
+            </span>
+            <span class="dashboard-nav-label">Stick Notes</span>
+          </a>
+
+          <button class="dashboard-nav-item" aria-label="White board">
+            <span class="dashboard-nav-icon sky">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+            </span>
+            <span class="dashboard-nav-label">White board</span>
+          </button>
+
+          <a class="dashboard-nav-item" href="../../Settings/Settings Menus/Adult Settings Menu/Unverified/Settings.html" aria-label="Settings">
+            <span class="dashboard-nav-icon violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </span>
+            <span class="dashboard-nav-label">Settings</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <section class="dashboard-panel">
+        <div class="dashboard-panel-header">
+          <h2 id="dashboard-panel-title">Space Home</h2>
+          <p id="dashboard-panel-desc">Welcome to your new space. Start collaborating!</p>
+        </div>
+
+        <div class="dashboard-panel-body">
+          <div class="dashboard-panel-content active" id="panel-home">
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon indigo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Space established</span>
+                <span class="dashboard-card-desc">Your space is ready. Invite others to join the conversation.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-panel-content" id="panel-messages">
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon sky">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">No messages yet</span>
+                <span class="dashboard-card-desc">Start a conversation with your space members.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-panel-content" id="panel-white-board">
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon sky">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Blank Canvas</span>
+                <span class="dashboard-card-desc">Visualize your ideas on the white board.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-panel-content" id="panel-settings">
+            <div class="dashboard-card">
+              <div class="dashboard-card-icon violet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div class="dashboard-card-text">
+                <span class="dashboard-card-label">Space Settings</span>
+                <span class="dashboard-card-desc">Configure your space's privacy and access rules.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="space-dashboard.js"></script>
+</body>
+</html>
