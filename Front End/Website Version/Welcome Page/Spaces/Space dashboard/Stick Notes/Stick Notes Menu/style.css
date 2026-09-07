@@ -141,11 +141,25 @@ body {
   border-radius: 9999px;
   font-weight: 600;
   font-size: 14px;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .new-note-btn:hover {
   background: #4F46E5;
+}
+
+.new-note-btn.delete-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--rose-accent);
+  border: 1px solid var(--border-subtle);
+}
+
+.new-note-btn.delete-btn:hover {
+  background: rgba(244, 63, 94, 0.1);
+  border-color: rgba(244, 63, 94, 0.3);
 }
 
 /* Dashboard Layout */
@@ -366,6 +380,12 @@ body {
   max-width: 90%;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .modal-header {
@@ -406,32 +426,30 @@ body {
   margin-top: 32px;
 }
 
-.delete-btn {
-  padding: 12px 24px;
-  background: var(--rose-accent);
-  color: white;
-  border: none;
+.modal-btn {
+  padding: 10px 20px;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s;
+  border: none;
 }
 
-.delete-btn:hover {
-  opacity: 0.9;
+.modal-btn.primary {
+  background: var(--primary-indigo);
+  color: white;
 }
 
-.cancel-btn {
-  padding: 12px 24px;
+.modal-btn.primary.delete {
+  background: var(--rose-accent);
+}
+
+.modal-btn.secondary {
   background: var(--border-subtle);
   color: var(--text-main);
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-.cancel-btn:hover {
-  background: #2d3748;
+.modal-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
 }

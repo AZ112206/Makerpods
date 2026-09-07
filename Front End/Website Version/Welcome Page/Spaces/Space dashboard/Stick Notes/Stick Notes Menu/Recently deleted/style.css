@@ -108,6 +108,14 @@ body {
   width: 100%;
 }
 
+.dashboard-panel {
+  flex: 1;
+  padding: 40px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
 .dashboard-sidebar {
   width: 260px;
   flex-shrink: 0;
@@ -206,19 +214,40 @@ body {
 .dashboard-nav-icon.violet { background: rgba(139, 92, 246, 0.12); color: var(--violet-accent); }
 .dashboard-nav-icon.indigo { background: rgba(99, 102, 241, 0.12); color: var(--primary-indigo); }
 
-.dashboard-panel {
-  flex: 1;
-  padding: 32px 48px;
-}
-
 .dashboard-panel-header {
   margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
 }
 
-.dashboard-panel-header h2 {
+.header-title-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.header-title-group h2 {
   font-size: 26px;
   font-weight: 800;
-  margin: 0 0 6px 0;
+  margin: 0;
+}
+
+.clear-all-btn {
+  padding: 8px 16px;
+  background: rgba(244, 63, 94, 0.1);
+  color: var(--rose-accent);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-all-btn:hover {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: var(--rose-accent);
 }
 
 .dashboard-panel-header p {
@@ -226,6 +255,7 @@ body {
   font-size: 15px;
   margin: 0;
 }
+
 
 /* Notes Grid */
 .notes-grid {
@@ -272,16 +302,169 @@ body {
   font-weight: 600;
   color: rgba(0,0,0,0.5);
   margin-top: 12px;
+  gap: 8px;
 }
 
-/* Note Colors */
-.note-mint { background-color: #BBF7D0; }
-.note-sky { background-color: #BAE6FD; }
-.note-indigo { background-color: #C7D2FE; }
-.note-violet { background-color: #DDD6FE; }
-.note-rose { background-color: #FECDD3; }
-.note-yellow { background-color: #FFFF88; }
-.note-pink { background-color: #FFB6C1; }
-.note-green { background-color: #BFFBBE; }
-.note-blue { background-color: #BBEBFF; }
-.note-orange { background-color: #FFCC88; }
+.note-action-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.note-action-btn:hover {
+  opacity: 0.7;
+}
+
+.btn-restore {
+  color: var(--primary-indigo);
+  font-weight: bold;
+}
+
+.btn-purge {
+  color: var(--rose-accent);
+  font-weight: bold;
+}
+
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-body p {
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.modal-footer {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.modal-btn.primary {
+  background: var(--primary-indigo);
+  color: white;
+}
+
+.modal-btn.secondary {
+  background: var(--border-subtle);
+  color: var(--text-main);
+}
+
+.modal-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.deleted-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.section-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+}

@@ -334,6 +334,16 @@ body {
   background-color: var(--indigo-hover);
 }
 
+.bento-delete-space .add-space-circle {
+  background: var(--rose-accent);
+  box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+}
+
+.bento-delete-space .add-space-circle:hover {
+  background-color: #e11d48;
+}
+
+
 .add-space-label {
   font-size: 14px;
   font-weight: 600;
@@ -408,10 +418,11 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
   border-radius: 24px;
-  width: 440px;
-  max-width: 90%;
+  width: 100%;
+  max-width: 440px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  animation: modalAppear 0.3s ease-out;
 }
 
 .modal-header {
@@ -583,3 +594,36 @@ body {
     min-height: auto;
   }
 }
+
+/* Additional Modal Footer Styles */
+.modal-footer {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.modal-btn.primary {
+  background: var(--primary-indigo);
+  color: white;
+}
+
+.modal-btn.secondary {
+  background: var(--border-subtle);
+  color: var(--text-main);
+}
+
+.modal-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+

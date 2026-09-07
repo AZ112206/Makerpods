@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesGrid = document.getElementById('notes-grid');
   const searchInput = document.getElementById('board-search');
   const boardTitle = document.getElementById('board-title');
+  const deleteBoardBtn = document.getElementById('delete-board-btn');
+  const deleteModal = document.getElementById('delete-board-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+  const cancelBtn = document.getElementById('modal-cancel-btn');
+  const confirmBtn = document.getElementById('modal-confirm-btn');
 
   // Load the board name for the board title
   const currentBoardId = localStorage.getItem('currentBoardId');
@@ -13,6 +18,43 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     window.location.href = '../Add Stick Note Board/Your Note Boards/index.html';
     return;
+  }
+
+  // Delete Board Modal Logic
+  if (deleteBoardBtn && deleteModal) {
+    deleteBoardBtn.addEventListener('click', () => {
+      deleteModal.classList.add('active');
+    });
+
+    const closeDeleteModal = () => deleteModal.classList.remove('active');
+    closeModalBtn.addEventListener('click', closeDeleteModal);
+    cancelBtn.addEventListener('click', closeDeleteModal);
+
+    confirmBtn.addEventListener('click', () => {
+      const activeBoards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
+      const boardToDelete = activeBoards.find(b => b.id == currentBoardId);
+
+      if (boardToDelete) {
+        // 1. Move board to recently deleted boards
+        const deletedBoards = JSON.parse(localStorage.getItem('makerpods_deleted_note_boards') || '[]');
+        deletedBoards.push({
+          ...boardToDelete,
+          deletedAt: new Date().toISOString().split('T')[0]
+        });
+        localStorage.setItem('makerpods_deleted_note_boards', JSON.stringify(deletedBoards));
+
+        // 2. Permanently delete all notes associated with this board
+        const notes = JSON.parse(localStorage.getItem('makerpods_space_notes') || '[]');
+        const remainingNotes = notes.filter(note => note.boardId != currentBoardId);
+        localStorage.setItem('makerpods_space_notes', JSON.stringify(remainingNotes));
+
+        // 3. Remove from active boards
+        const remainingBoards = activeBoards.filter(b => b.id != currentBoardId);
+        localStorage.setItem('makerpods_note_boards', JSON.stringify(remainingBoards));
+      }
+
+      window.location.href = '../Add Stick Note Board/Your Note Boards/index.html';
+    });
   }
 
   // Initial notes if none exist in localStorage

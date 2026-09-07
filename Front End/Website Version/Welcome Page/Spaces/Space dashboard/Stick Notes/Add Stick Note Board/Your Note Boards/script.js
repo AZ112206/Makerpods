@@ -23,6 +23,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function renderBoards(filter = '') {
+    const boards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
+
+    const existingBoards = boardsList.querySelectorAll('.board-card, .joined-empty-state');
+    existingBoards.forEach(board => board.remove());
+
+    const filteredBoards = boards.filter(b =>
+      b.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    if (filteredBoards.length === 0 && filter !== '') {
+      const emptyState = document.createElement('div');
+      emptyState.className = 'joined-empty-state';
+      emptyState.innerHTML = `<p>No boards found matching your search.</p>`;
+      boardsList.appendChild(emptyState);
+      return;
+    }
+
+    filteredBoards.forEach(board => {
+      const card = document.createElement('div');
+      card.className = 'board-card';
+      card.innerHTML = `
+        <div class="board-card-icon" style="background: ${board.color}22; color: ${board.color};">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><path d="M15 3v4"/><path d="M9 3v4"/></svg>
+        </div>
+        <div class="board-card-info">
+          <h4>${board.name}</h4>
+          <p>Created on ${board.date}</p>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        localStorage.setItem('currentBoardId', board.id);
+        window.location.href = '../../Stick Notes Menu/index.html';
+      });
+      boardsList.appendChild(card);
+    });
+  }
+
   // Color Selection in Modal
   const colorOptions = document.querySelectorAll('.color-option');
   let selectedColor = '#6366f1';
@@ -75,44 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.remove('active');
       nameInput.value = '';
       renderBoards();
-    });
-  }
-
-  function renderBoards(filter = '') {
-    const boards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
-
-    const existingBoards = boardsList.querySelectorAll('.board-card, .joined-empty-state');
-    existingBoards.forEach(board => board.remove());
-
-    const filteredBoards = boards.filter(b =>
-      b.name.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    if (filteredBoards.length === 0 && filter !== '') {
-      const emptyState = document.createElement('div');
-      emptyState.className = 'joined-empty-state';
-      emptyState.innerHTML = `<p>No boards found matching your search.</p>`;
-      boardsList.appendChild(emptyState);
-      return;
-    }
-
-    filteredBoards.forEach(board => {
-      const card = document.createElement('div');
-      card.className = 'board-card';
-      card.innerHTML = `
-        <div class="board-card-icon" style="background: ${board.color}22; color: ${board.color};">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><path d="M15 3v4"/><path d="M9 3v4"/></svg>
-        </div>
-        <div class="board-card-info">
-          <h4>${board.name}</h4>
-          <p>Created on ${board.date}</p>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        localStorage.setItem('currentBoardId', board.id);
-        window.location.href = '../../Stick Notes Menu/index.html';
-      });
-      boardsList.appendChild(card);
     });
   }
 

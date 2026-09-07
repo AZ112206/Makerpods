@@ -79,13 +79,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showModal(title, message, onConfirm) {
+    const modal = document.getElementById('confirmation-modal');
+    const titleEl = document.getElementById('modal-title');
+    const messageEl = document.getElementById('modal-message');
+    const confirmBtn = document.getElementById('modal-confirm-btn');
+    const cancelBtn = document.getElementById('modal-cancel-btn');
+    const closeBtn = document.getElementById('close-modal');
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+
+    modal.classList.add('active');
+
+    const handleConfirm = () => {
+      onConfirm();
+      modal.classList.remove('active');
+      confirmBtn.removeEventListener('click', handleConfirm);
+    };
+
+    confirmBtn.addEventListener('click', handleConfirm);
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      confirmBtn.removeEventListener('click', handleConfirm);
+    };
+
+    cancelBtn.onclick = closeModal;
+    closeBtn.onclick = closeModal;
+  }
+
   function deleteNote() {
-    if (confirm('Are you sure you want to delete this note?')) {
+    showModal('Delete Note', 'Are you sure you want to delete this note?', () => {
       const notes = getNotes();
       const noteToDelete = notes.find(n => n.id == currentNoteId);
 
       if (noteToDelete) {
-        // Move to deleted notes storage
         const deletedNotes = JSON.parse(localStorage.getItem('makerpods_deleted_space_notes') || '[]');
         deletedNotes.push(noteToDelete);
         localStorage.setItem('makerpods_deleted_space_notes', JSON.stringify(deletedNotes));
@@ -94,8 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const remainingNotes = notes.filter(n => n.id != currentNoteId);
       localStorage.setItem('makerpods_space_notes', JSON.stringify(remainingNotes));
       window.location.href = '../Stick Notes Menu/index.html';
-    }
+    });
   }
+
 
   editBtn.addEventListener('click', () => {
     if (isEditing) {
