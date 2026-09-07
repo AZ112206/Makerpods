@@ -79,20 +79,20 @@
       <section class="editor-panel">
         <div class="editor-container">
           <div class="stick-note-editor note-mint" id="note-canvas">
-            <div class="color-picker">
-              <button class="color-dot mint active" data-color="mint"></button>
-              <button class="color-dot sky" data-color="sky"></button>
-              <button class="color-dot indigo" data-color="indigo"></button>
-              <button class="color-dot violet" data-color="violet"></button>
-              <button class="color-dot rose" data-color="rose"></button>
-              <button class="color-dot yellow" data-color="yellow" style="background-color: #FFFF88;"></button>
-              <button class="color-dot pink" data-color="pink" style="background-color: #FFB6C1;"></button>
-              <button class="color-dot green" data-color="green" style="background-color: #BFFBBE;"></button>
-              <button class="color-dot blue" data-color="blue" style="background-color: #BBEBFF;"></button>
-              <button class="color-dot orange" data-color="orange" style="background-color: #FFCC88;"></button>
-              <label class="color-dot custom-color-option" title="Custom Color">
-                <input type="color" id="custom-color-input" value="#FFFF00" style="opacity: 0; width: 100%; height: 100%; cursor: pointer;">
-                <span class="color-swatch" style="position: absolute; inset: 0; background: #FFFF00;"></span>
+            <div class="note-color-picker">
+              <div class="color-option mint active" data-color="mint" style="background-color: #BBF7D0;"></div>
+              <div class="color-option sky" data-color="sky" style="background-color: #BAE6FD;"></div>
+              <div class="color-option indigo" data-color="indigo" style="background-color: #C7D2FE;"></div>
+              <div class="color-option violet" data-color="violet" style="background-color: #DDD6FE;"></div>
+              <div class="color-option rose" data-color="rose" style="background-color: #FECDD3;"></div>
+              <div class="color-option yellow" data-color="yellow" style="background-color: #FFFF88;"></div>
+              <div class="color-option pink" data-color="pink" style="background-color: #FFB6C1;"></div>
+              <div class="color-option green" data-color="green" style="background-color: #BFFBBE;"></div>
+              <div class="color-option blue" data-color="blue" style="background-color: #BBEBFF;"></div>
+              <div class="color-option orange" data-color="orange" style="background-color: #FFCC88;"></div>
+              <label class="color-option custom-color-option" title="Custom Color">
+                <input type="color" id="custom-color-input" value="#FFFF00">
+                <span class="color-picker-swatch"></span>
               </label>
             </div>
             <textarea id="note-text" placeholder="Write your note here..."></textarea>
