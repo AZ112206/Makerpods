@@ -273,6 +273,18 @@ body {
   position: relative;
 }
 
+/* Keep the detail paper colors identical to the note cards and editor. */
+.stick-note-detail.note-mint { background-color: #BBF7D0; }
+.stick-note-detail.note-sky { background-color: #BAE6FD; }
+.stick-note-detail.note-indigo { background-color: #C7D2FE; }
+.stick-note-detail.note-violet { background-color: #DDD6FE; }
+.stick-note-detail.note-rose { background-color: #FECDD3; }
+.stick-note-detail.note-yellow { background-color: #FFFF88; }
+.stick-note-detail.note-pink { background-color: #FFB6C1; }
+.stick-note-detail.note-green { background-color: #BFFBBE; }
+.stick-note-detail.note-blue { background-color: #BBEBFF; }
+.stick-note-detail.note-orange { background-color: #FFCC88; }
+
 #note-text {
   flex: 1;
   background: transparent;

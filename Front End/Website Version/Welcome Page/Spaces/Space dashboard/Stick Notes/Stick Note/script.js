@@ -20,6 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return notes.find(n => n.id == currentNoteId);
   }
 
+  function applyNoteColor(color) {
+    const normalizedColor = String(color || 'mint');
+    noteCanvas.className = 'stick-note-detail';
+
+    if (normalizedColor.startsWith('#')) {
+      noteCanvas.style.backgroundColor = normalizedColor;
+    } else {
+      noteCanvas.style.backgroundColor = '';
+      noteCanvas.classList.add(`note-${normalizedColor}`);
+    }
+  }
+
   function loadNote() {
     const note = findNote();
     if (!note) {
@@ -32,14 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noteText.value = note.text;
 
     // Set color
-    selectedColor = note.color;
-    if (selectedColor.startsWith('#')) {
-      noteCanvas.style.backgroundColor = selectedColor;
-      noteCanvas.className = `stick-note-detail`;
-    } else {
-      noteCanvas.style.backgroundColor = '';
-      noteCanvas.className = `stick-note-detail note-${selectedColor}`;
-    }
+    selectedColor = String(note.color || 'mint');
+    applyNoteColor(selectedColor);
 
     // Highlight active color option
     colorOptions.forEach(opt => {
@@ -143,8 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedColor = color;
         colorOptions.forEach(opt => opt.classList.remove('active'));
         option.classList.add('active');
-        noteCanvas.style.backgroundColor = '';
-        noteCanvas.className = `stick-note-detail note-${selectedColor}`;
+        applyNoteColor(selectedColor);
       }
     });
   });
@@ -153,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (customColorInput) {
     customColorInput.addEventListener('input', (e) => {
       selectedColor = e.target.value;
-      noteCanvas.style.backgroundColor = selectedColor;
+      applyNoteColor(selectedColor);
       const swatch = customColorInput.nextElementSibling;
       if (swatch) swatch.style.backgroundColor = selectedColor;
       colorOptions.forEach(opt => opt.classList.remove('active'));

@@ -80,11 +80,11 @@
   </main>
 
   <!-- Create Board Modal -->
-  <div id="create-board-modal" class="modal-overlay">
+  <div id="create-board-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="create-board-title" hidden>
     <div class="modal-container">
       <div class="modal-header">
-        <h2>Create New Board</h2>
-        <button id="close-modal" class="close-button">
+        <h2 id="create-board-title">Create New Board</h2>
+        <button type="button" id="close-modal" class="close-button" aria-label="Close Create Board">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
@@ -115,6 +115,25 @@
             <button type="submit" class="create-btn">Create Board</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="duplicate-board-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="duplicate-board-title" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="duplicate-board-title">Board Already Exists</h2>
+        <button type="button" id="duplicate-close-modal" class="close-button" aria-label="Close Duplicate Board Dialog">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="duplicate-board-message"></p>
+        <div class="modal-footer duplicate-modal-footer">
+          <button type="button" id="duplicate-cancel-btn" class="modal-btn secondary">Cancel</button>
+          <button type="button" id="duplicate-copy-btn" class="modal-btn secondary">Create Copy</button>
+          <button type="button" id="duplicate-override-btn" class="modal-btn primary delete">Override</button>
+        </div>
       </div>
     </div>
   </div>

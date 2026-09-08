@@ -408,6 +408,8 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -437,6 +439,7 @@ body {
   margin: 0;
   font-size: 20px;
   font-weight: 700;
+  color: var(--text-main);
 }
 
 .close-button {
@@ -456,11 +459,50 @@ body {
   padding: 24px;
 }
 
+.modal-body p {
+  font-size: 16px;
+  color: var(--text-main);
+  margin: 0;
+  text-align: center;
+}
+
 .modal-footer {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  justify-content: flex-end;
+  gap: 12px;
   margin-top: 32px;
+}
+
+.duplicate-modal-footer {
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.modal-btn.primary {
+  background: var(--primary-indigo);
+  color: white;
+}
+
+.modal-btn.primary.delete {
+  background: var(--rose-accent);
+}
+
+.modal-btn.secondary {
+  background: var(--border-subtle);
+  color: var(--text-main);
+}
+
+.modal-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
 }
 
 .delete-btn {

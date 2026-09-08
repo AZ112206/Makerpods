@@ -5,26 +5,134 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('create-board-form');
   const boardsList = document.getElementById('boards-list');
   const searchInput = document.getElementById('board-search');
+  const duplicateModal = document.getElementById('duplicate-board-modal');
+  const duplicateMessage = document.getElementById('duplicate-board-message');
+  const duplicateCloseBtn = document.getElementById('duplicate-close-modal');
+  const duplicateCancelBtn = document.getElementById('duplicate-cancel-btn');
+  const duplicateCopyBtn = document.getElementById('duplicate-copy-btn');
+  const duplicateOverrideBtn = document.getElementById('duplicate-override-btn');
+  let activeModalClose = null;
+  let pendingBoard = null;
+
+  function setModalState(target, isOpen) {
+    if (!target) return;
+    target.hidden = !isOpen;
+    target.classList.toggle('active', isOpen);
+    target.setAttribute('aria-hidden', String(!isOpen));
+  }
+
+  function closeCreateModal() {
+    setModalState(modal, false);
+    if (activeModalClose === closeCreateModal) activeModalClose = null;
+  }
+
+  function closeDuplicateModal() {
+    setModalState(duplicateModal, false);
+    pendingBoard = null;
+    if (activeModalClose === closeDuplicateModal) activeModalClose = null;
+  }
+
+  function getBoards() {
+    try {
+      const boards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
+      return Array.isArray(boards) ? boards : [];
+    } catch (error) {
+      console.error('Unable to read note boards:', error);
+      return [];
+    }
+  }
+
+  function getUniqueId(boards) {
+    let id = Date.now();
+    while (boards.some(board => board.id == id)) id += 1;
+    return id;
+  }
+
+  function getCopyName(baseName, boards) {
+    let copyNumber = 1;
+    let copyName = `${baseName} #${copyNumber}`;
+    while (boards.some(board => board.name === copyName)) {
+      copyNumber += 1;
+      copyName = `${baseName} #${copyNumber}`;
+    }
+    return copyName;
+  }
+
+  function saveBoard(board, mode) {
+    const boards = getBoards();
+    const boardDate = new Date().toISOString().split('T')[0];
+
+    if (mode === 'override') {
+      const existingIndex = boards.findIndex(existingBoard => existingBoard.name === board.name);
+      if (existingIndex !== -1) {
+        boards[existingIndex] = {
+          ...boards[existingIndex],
+          color: board.color,
+          date: boardDate
+        };
+      }
+    } else {
+      boards.push({
+        ...board,
+        id: getUniqueId(boards),
+        name: mode === 'copy' ? getCopyName(board.name, boards) : board.name,
+        date: boardDate
+      });
+    }
+
+    localStorage.setItem('makerpods_note_boards', JSON.stringify(boards));
+    closeDuplicateModal();
+    closeCreateModal();
+    const nameInput = document.getElementById('board-name');
+    if (nameInput) nameInput.value = '';
+    renderBoards();
+  }
+
+  function openDuplicateModal(board, existingBoard) {
+    pendingBoard = board;
+    if (duplicateMessage) {
+      duplicateMessage.textContent = `A board named “${existingBoard.name}” already exists. Override it or create a numbered copy?`;
+    }
+    setModalState(modal, false);
+    setModalState(duplicateModal, true);
+    activeModalClose = closeDuplicateModal;
+    if (duplicateOverrideBtn) duplicateOverrideBtn.focus();
+  }
 
   // Modal Logic
   if (openModalBtn && modal && closeBtn) {
     openModalBtn.addEventListener('click', () => {
-      modal.classList.add('active');
+      setModalState(modal, true);
+      activeModalClose = closeCreateModal;
     });
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
+    closeBtn.addEventListener('click', closeCreateModal);
 
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
+      if (e.target === modal) closeCreateModal();
     });
   }
 
+  if (duplicateModal) {
+    duplicateCloseBtn?.addEventListener('click', closeDuplicateModal);
+    duplicateCancelBtn?.addEventListener('click', closeDuplicateModal);
+    duplicateModal.addEventListener('click', (event) => {
+      if (event.target === duplicateModal) closeDuplicateModal();
+    });
+    duplicateOverrideBtn?.addEventListener('click', () => {
+      if (pendingBoard) saveBoard(pendingBoard, 'override');
+    });
+    duplicateCopyBtn?.addEventListener('click', () => {
+      if (pendingBoard) saveBoard(pendingBoard, 'copy');
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && activeModalClose) activeModalClose();
+  });
+
   function renderBoards(filter = '') {
-    const boards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
+    const boards = getBoards();
 
     const existingBoards = boardsList.querySelectorAll('.board-card, .joined-empty-state');
     existingBoards.forEach(board => board.remove());
@@ -91,7 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const nameInput = document.getElementById('board-name');
-      const boardName = nameInput.value;
+      const boardName = nameInput.value.trim();
+      if (!boardName) return;
 
       let finalColor = selectedColor;
       if (selectedColor === 'any') {
@@ -100,17 +209,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const newBoard = {
-        id: Date.now(),
         name: boardName,
         color: finalColor,
         date: new Date().toISOString().split('T')[0]
       };
 
-      const boards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
+      const boards = getBoards();
+      const existingBoard = boards.find(board => board.name === boardName);
+      if (existingBoard) {
+        openDuplicateModal(newBoard, existingBoard);
+        return;
+      }
+
+      newBoard.id = getUniqueId(boards);
       boards.push(newBoard);
       localStorage.setItem('makerpods_note_boards', JSON.stringify(boards));
-
-      modal.classList.remove('active');
+      closeCreateModal();
       nameInput.value = '';
       renderBoards();
     });
