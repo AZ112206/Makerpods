@@ -11,17 +11,15 @@
 <body data-theme="dark">
 
   <header class="top-strip">
-    <a href="../../../Dashboard/space-dashboard.html" class="top-strip-logo">
+    <a href="../../../Dashboard/space-dashboard.html" class="top-strip-logo" aria-label="Back to Spaces">
       <img src="../../../../../../assets/images/makerpods-logo.png" alt="Makerpods" class="top-strip-logo-img">
     </a>
-    <div class="top-strip-actions">
-      <div class="board-search-container">
-        <span class="search-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </span>
-        <input type="text" id="board-search" placeholder="Search deleted notes...">
-      </div>
-    </div>
+    <form class="top-strip-search" role="search" aria-label="Search Space">
+      <span class="top-strip-search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="search" class="top-strip-search-input" id="board-search" placeholder="Search deleted notes..." aria-label="Search Space" />
+    </form>
   </header>
 
   <main class="dashboard">
@@ -62,9 +60,13 @@
         </div>
 
         <div class="dashboard-panel-body">
-          <div class="deleted-section">
-            <div class="notes-grid" id="deleted-notes-grid">
-              <!-- Deleted notes will be injected here -->
+          <div class="spaces-section">
+            <div class="spaces-bento-grid joined-spaces-grid">
+              <div class="joined-spaces-container">
+                <div class="joined-spaces-scroll" id="deleted-notes-list">
+                  <!-- Deleted notes will be injected here -->
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -72,19 +74,19 @@
     </div>
   </main>
 
-  <div class="modal-overlay" id="confirmation-modal">
+  <div class="modal-overlay" id="confirmation-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" hidden>
     <div class="modal-container">
       <div class="modal-header">
         <h2 id="modal-title">Confirm Action</h2>
-        <button id="close-modal" class="close-button" aria-label="Close Modal">
+        <button type="button" id="close-modal" class="close-button" aria-label="Close Modal">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
       <div class="modal-body">
         <p id="modal-message">Are you sure you want to perform this action?</p>
         <div class="modal-footer">
-          <button id="modal-cancel-btn" class="modal-btn secondary">Cancel</button>
-          <button id="modal-confirm-btn" class="modal-btn primary">Confirm</button>
+          <button type="button" id="modal-cancel-btn" class="modal-btn secondary">Cancel</button>
+          <button type="button" id="modal-confirm-btn" class="modal-btn primary">Confirm</button>
         </div>
       </div>
     </div>

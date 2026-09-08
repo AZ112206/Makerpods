@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const notesGrid = document.getElementById('deleted-notes-grid');
+  const notesGrid = document.getElementById('deleted-notes-list');
   const searchInput = document.getElementById('board-search');
   const clearAllBtn = document.getElementById('clear-all-btn');
+  let activeModalClose = null;
+
+  if (!notesGrid) {
+    console.error('Error: deleted-notes-list not found in DOM');
+    return;
+  }
 
   function showModal(title, message, onConfirm) {
     const modal = document.getElementById('confirmation-modal');
@@ -11,31 +17,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelBtn = document.getElementById('modal-cancel-btn');
     const closeBtn = document.getElementById('close-modal');
 
-    titleEl.textContent = title;
-    messageEl.textContent = message;
+    if (!modal || !confirmBtn) {
+      console.error('Modal elements not found');
+      return;
+    }
 
+    if (titleEl) titleEl.textContent = title;
+    if (messageEl) messageEl.textContent = message;
+
+    modal.hidden = false;
     modal.classList.add('active');
-
-    const handleConfirm = () => {
-      onConfirm();
-      modal.classList.remove('active');
-      confirmBtn.removeEventListener('click', handleConfirm);
-    };
-
-    confirmBtn.addEventListener('click', handleConfirm);
+    modal.setAttribute('aria-hidden', 'false');
 
     const closeModal = () => {
       modal.classList.remove('active');
-      confirmBtn.removeEventListener('click', handleConfirm);
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      confirmBtn.onclick = null;
+      if (cancelBtn) cancelBtn.onclick = null;
+      if (closeBtn) closeBtn.onclick = null;
+      modal.onclick = null;
+      activeModalClose = null;
     };
 
-    cancelBtn.onclick = closeModal;
-    closeBtn.onclick = closeModal;
+    activeModalClose = closeModal;
+    confirmBtn.onclick = () => {
+      closeModal();
+      onConfirm();
+    };
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    if (closeBtn) closeBtn.onclick = closeModal;
+    modal.onclick = (event) => {
+      if (event.target === modal) closeModal();
+    };
+    confirmBtn.focus();
   }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && activeModalClose) activeModalClose();
+  });
 
   function getDeletedNotes() {
     const stored = localStorage.getItem('makerpods_deleted_space_notes');
-    return stored ? JSON.parse(stored) : [];
+    if (!stored) return [];
+    try {
+      const notes = JSON.parse(stored);
+      return Array.isArray(notes) ? notes : [];
+    } catch (error) {
+      console.error('Unable to read deleted notes:', error);
+      return [];
+    }
   }
 
   function renderNotes(filter = '') {
@@ -43,11 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
     notesGrid.innerHTML = '';
 
     const filteredNotes = notes.filter(note =>
-      note.text.toLowerCase().includes(filter.toLowerCase())
+      String(note.text || '').toLowerCase().includes(filter.toLowerCase())
     );
 
     if (filteredNotes.length === 0) {
-      notesGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No deleted notes found.</div>`;
+      notesGrid.innerHTML = `<div class="empty-state-box">No deleted notes found.</div>`;
       return;
     }
 
@@ -64,45 +95,58 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="note-footer">
           <span>${note.date || ''}</span>
           <div class="note-actions">
-            <button class="note-action-btn btn-restore" onclick="restoreNote(${note.id})">Restore</button>
-            <button class="note-action-btn btn-purge" onclick="purgeNote(${note.id})">Purge</button>
+            <button class="note-action-btn btn-restore">Restore</button>
+            <button class="note-action-btn btn-purge">Purge</button>
           </div>
         </div>
       `;
+
+      card.querySelector('.btn-restore').addEventListener('click', (e) => {
+        e.stopPropagation();
+        restoreNote(note.id);
+      });
+
+      card.querySelector('.btn-purge').addEventListener('click', (e) => {
+        e.stopPropagation();
+        purgeNote(note.id);
+      });
+
       notesGrid.appendChild(card);
     });
   }
 
-  window.restoreNote = function(id) {
+  function restoreNote(id) {
     const deletedNotes = getDeletedNotes();
     const noteIndex = deletedNotes.findIndex(n => n.id == id);
     if (noteIndex !== -1) {
       const note = deletedNotes[noteIndex];
 
       const mainNotes = JSON.parse(localStorage.getItem('makerpods_space_notes') || '[]');
-      mainNotes.push(note);
+      if (!mainNotes.some(existingNote => existingNote.id == note.id)) {
+        mainNotes.push(note);
+      }
       localStorage.setItem('makerpods_space_notes', JSON.stringify(mainNotes));
 
       deletedNotes.splice(noteIndex, 1);
       localStorage.setItem('makerpods_deleted_space_notes', JSON.stringify(deletedNotes));
 
-      renderNotes();
+      renderNotes(searchInput ? searchInput.value : '');
     }
-  };
+  }
 
-  window.purgeNote = function(id) {
+  function purgeNote(id) {
     showModal('Permanently Delete', 'This action cannot be undone. Delete this note forever?', () => {
       const deletedNotes = getDeletedNotes();
       const filtered = deletedNotes.filter(n => n.id != id);
       localStorage.setItem('makerpods_deleted_space_notes', JSON.stringify(filtered));
-      renderNotes();
+      renderNotes(searchInput ? searchInput.value : '');
     });
   }
 
   function purgeAllNotes() {
     showModal('Purge Everything', 'Are you sure you want to permanently delete all deleted notes? This action cannot be undone.', () => {
       localStorage.setItem('makerpods_deleted_space_notes', JSON.stringify([]));
-      renderNotes();
+      renderNotes(searchInput ? searchInput.value : '');
     });
   }
 

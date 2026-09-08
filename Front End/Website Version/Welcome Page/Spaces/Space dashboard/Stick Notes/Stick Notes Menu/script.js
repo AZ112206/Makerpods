@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModalBtn = document.getElementById('close-modal');
   const cancelBtn = document.getElementById('modal-cancel-btn');
   const confirmBtn = document.getElementById('modal-confirm-btn');
+  let activeModalClose = null;
 
   // Load the board name for the board title
   const currentBoardId = localStorage.getItem('currentBoardId');
@@ -23,14 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delete Board Modal Logic
   if (deleteBoardBtn && deleteModal) {
     deleteBoardBtn.addEventListener('click', () => {
+      deleteModal.hidden = false;
+      deleteModal.setAttribute('aria-hidden', 'false');
       deleteModal.classList.add('active');
+      activeModalClose = closeDeleteModal;
+      confirmBtn.focus();
     });
 
-    const closeDeleteModal = () => deleteModal.classList.remove('active');
+    const closeDeleteModal = () => {
+      deleteModal.classList.remove('active');
+      deleteModal.hidden = true;
+      deleteModal.setAttribute('aria-hidden', 'true');
+      activeModalClose = null;
+    };
     closeModalBtn.addEventListener('click', closeDeleteModal);
     cancelBtn.addEventListener('click', closeDeleteModal);
+    deleteModal.addEventListener('click', (event) => {
+      if (event.target === deleteModal) closeDeleteModal();
+    });
 
     confirmBtn.addEventListener('click', () => {
+      closeDeleteModal();
       const activeBoards = JSON.parse(localStorage.getItem('makerpods_note_boards') || '[]');
       const boardToDelete = activeBoards.find(b => b.id == currentBoardId);
 
@@ -56,6 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = '../Add Stick Note Board/Your Note Boards/index.html';
     });
   }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && deleteModal.classList.contains('active')) {
+      if (activeModalClose) activeModalClose();
+    }
+  });
 
   // Initial notes if none exist in localStorage
   const defaultNotes = [

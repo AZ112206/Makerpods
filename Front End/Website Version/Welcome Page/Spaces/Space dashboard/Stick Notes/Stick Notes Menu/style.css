@@ -366,6 +366,8 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -376,8 +378,8 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
   border-radius: 24px;
-  width: 440px;
-  max-width: 90%;
+  width: 100%;
+  max-width: 440px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   animation: modalAppear 0.3s ease-out;
@@ -400,10 +402,11 @@ body {
   margin: 0;
   font-size: 20px;
   font-weight: 700;
+  color: var(--text-main);
 }
 
 .close-button {
-  background: none;
+  background: transparent;
   border: none;
   color: var(--text-muted);
   cursor: pointer;
@@ -419,10 +422,17 @@ body {
   padding: 24px;
 }
 
+.modal-body p {
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
 .modal-footer {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  justify-content: flex-end;
+  gap: 12px;
   margin-top: 32px;
 }
 

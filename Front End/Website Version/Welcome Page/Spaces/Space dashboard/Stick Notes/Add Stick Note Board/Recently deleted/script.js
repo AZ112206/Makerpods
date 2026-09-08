@@ -1,22 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
   const deletedBoardsList = document.getElementById('deleted-boards-list');
   const searchInput = document.getElementById('board-search');
+  let activeModalClose = null;
+
+  function showModal(title, message, onConfirm) {
+    const modal = document.getElementById('confirmation-modal');
+    const titleEl = document.getElementById('modal-title');
+    const messageEl = document.getElementById('modal-message');
+    const confirmBtn = document.getElementById('modal-confirm-btn');
+    const cancelBtn = document.getElementById('modal-cancel-btn');
+    const closeBtn = document.getElementById('close-modal');
+
+    if (!modal || !confirmBtn) {
+      console.error('Modal elements not found');
+      return;
+    }
+
+    if (titleEl) titleEl.textContent = title;
+    if (messageEl) messageEl.textContent = message;
+
+    modal.hidden = false;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      confirmBtn.onclick = null;
+      if (cancelBtn) cancelBtn.onclick = null;
+      if (closeBtn) closeBtn.onclick = null;
+      modal.onclick = null;
+      activeModalClose = null;
+    };
+
+    activeModalClose = closeModal;
+    confirmBtn.onclick = () => {
+      closeModal();
+      onConfirm();
+    };
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    if (closeBtn) closeBtn.onclick = closeModal;
+    modal.onclick = (event) => {
+      if (event.target === modal) closeModal();
+    };
+    confirmBtn.focus();
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && activeModalClose) activeModalClose();
+  });
 
   function getDeletedBoards() {
-    const stored = localStorage.getItem('makerpods_deleted_boards');
-    return stored ? JSON.parse(stored) : [];
+    const stored = localStorage.getItem('makerpods_deleted_note_boards');
+    if (!stored) return [];
+    try {
+      const boards = JSON.parse(stored);
+      return Array.isArray(boards) ? boards : [];
+    } catch (error) {
+      console.error('Unable to read deleted boards:', error);
+      return [];
+    }
   }
 
   function renderDeletedBoards(filter = '') {
     const boards = getDeletedBoards();
+    if (!deletedBoardsList) return;
     deletedBoardsList.innerHTML = '';
 
     const filteredBoards = boards.filter(board =>
-      board.name.toLowerCase().includes(filter.toLowerCase())
+      String(board.name || '').toLowerCase().includes(filter.toLowerCase())
     );
 
     if (filteredBoards.length === 0) {
-      deletedBoardsList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No deleted boards found.</div>`;
+      deletedBoardsList.innerHTML = `<div class="empty-state-box">No deleted boards found.</div>`;
       return;
     }
 
@@ -29,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="board-card-info">
           <h4>${board.name}</h4>
-          <p>Deleted on ${board.deleteDate || 'Unknown'}</p>
+          <p>Deleted on ${board.deletedAt || board.deleteDate || 'Unknown'}</p>
         </div>
         <div class="board-actions">
           <button class="action-btn restore-btn" data-id="${board.id}">Restore</button>
@@ -62,28 +119,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add back to active boards
     const activeStored = localStorage.getItem('makerpods_note_boards');
-    const active = activeStored ? JSON.parse(activeStored) : [];
-    active.push(board);
+    let active = [];
+    try {
+      const parsed = activeStored ? JSON.parse(activeStored) : [];
+      active = Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Unable to read active boards:', error);
+    }
+    if (!active.some(activeBoard => activeBoard.id == board.id)) {
+      active.push(board);
+    }
     localStorage.setItem('makerpods_note_boards', JSON.stringify(active));
 
     // Remove from deleted
     deleted.splice(boardIndex, 1);
-    localStorage.setItem('makerpods_deleted_boards', JSON.stringify(deleted));
+    localStorage.setItem('makerpods_deleted_note_boards', JSON.stringify(deleted));
 
     renderDeletedBoards();
   }
 
   function purgeBoard(id) {
-    if (confirm('Permanently delete this board and all its notes? This cannot be undone.')) {
-      const deleted = getDeletedBoards().filter(b => b.id !== id);
-      localStorage.setItem('makerpods_deleted_boards', JSON.stringify(deleted));
+    showModal('Permanently Delete Board', 'Are you sure you want to permanently delete this board and all its notes? This cannot be undone.', () => {
+      const deleted = getDeletedBoards().filter(b => b.id != id);
+      localStorage.setItem('makerpods_deleted_note_boards', JSON.stringify(deleted));
       renderDeletedBoards();
-    }
+    });
   }
 
-  searchInput.addEventListener('input', (e) => {
-    renderDeletedBoards(e.target.value);
-  });
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      renderDeletedBoards(e.target.value);
+    });
+  }
 
   renderDeletedBoards();
 });

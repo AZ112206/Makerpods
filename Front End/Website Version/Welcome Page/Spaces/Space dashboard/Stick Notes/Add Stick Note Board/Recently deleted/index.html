@@ -77,6 +77,24 @@
     </div>
   </main>
 
+  <div class="modal-overlay" id="confirmation-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="modal-title">Confirm Action</h2>
+        <button type="button" id="close-modal" class="close-button" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="modal-message">Are you sure you want to perform this action?</p>
+        <div class="modal-footer">
+          <button type="button" id="modal-cancel-btn" class="modal-btn secondary">Cancel</button>
+          <button type="button" id="modal-confirm-btn" class="modal-btn primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
